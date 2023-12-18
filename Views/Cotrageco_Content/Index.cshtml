@@ -1,0 +1,149 @@
+﻿@model IEnumerable<Cotrageco.Models.Cotrageco_Content>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Objective_Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Objective_Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Project_Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Project_Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AboutUs_Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AboutUs_Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AboutUs_Banner)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Presentation_Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Company_Presentaion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Registration_Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OFS_Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OFS_Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Services_Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Services_Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Services_Banner)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Realisations_Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Realisations_Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Contact_Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Contact_Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Conatct_Banner)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Objective_Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Objective_Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Project_Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Project_Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AboutUs_Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AboutUs_Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AboutUs_Banner)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Presentation_Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Company_Presentaion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Registration_Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OFS_Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OFS_Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Services_Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Services_Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Services_Banner)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Realisations_Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Realisations_Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Contact_Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Contact_Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Conatct_Banner)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Cotrageco_ContentId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Cotrageco_ContentId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Cotrageco_ContentId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

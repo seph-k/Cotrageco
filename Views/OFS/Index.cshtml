@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Cotrageco.Models.OFS>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.OFS_Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OFS_Icon)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OFS_Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OFS_Icon)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.OFSId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.OFSId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.OFSId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
