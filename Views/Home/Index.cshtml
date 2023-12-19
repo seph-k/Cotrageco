@@ -1,4 +1,7 @@
-﻿@{
+﻿@* add view model class to have access to its content *@
+@model Cotrageco.ViewModel.HomeViewModel
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -113,59 +116,42 @@
     <div class="features-with-17_sur py-5">
         <div class="container py-lg-5">
             <div class="heading text-center mx-auto mb-5">
-                <h3 class="head">Nos Objectifs</h3>
-                <p class="my-3 head">
-                    COTRAGECO Sarl est une société de droit Congolais agissant conformément aux prescrits des pleusiers articles.
-                    Créée depuis les vingt septièmes jours du mois d’aout 2021 dans les perspectives de la poursuite trois objectifs qui caractérisent son rôle
-                </p>
+                @* use the foreach to get all the content from the model *@
+
+                @foreach (var CC in Model.cotrageco_Contents)
+                {
+                    <h3 class="head">@Html.Raw(CC.Objective_Title)</h3>
+
+                    <p class="my-3 head">
+                        @Html.Raw(CC.Objective_Description)
+                    </p>
+                }
             </div>
             <div class="features-with-17-top_sur mt-5 pt-3">
                 <div class="row">
-                    <div class="col-lg-4 col-md-6 mt-md-0 mt-4">
-                        <div class="features-with-17-right-tp_sur">
-                            <div class="features-with-17-left1 mb-3">
-                                <span class="fa fa-line-chart" aria-hidden="true"></span>
-                            </div>
-                            <div class="features-with-17-left2">
-                                <h6><a href="#url">Rôle économique</a></h6>
-                                <p>
-                                    satisfaire les besoins de la clientèle aux meilleures conditions de prix et de la qualité ; apporter l'équilibre entre l'offre et la demande ;
-                                    Innover ou créer des nouveaux procédés ; Participer au développement économique.
-                                </p>
-                                <a href="about.html" class="actionbg">Lire la suite </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 mt-md-0 mt-5">
-                        <div class="features-with-17-right-tp_sur">
-                            <div class="features-with-17-left1 mb-3">
-                                <span class="fa fa-user" aria-hidden="true"></span>
-                            </div>
-                            <div class="features-with-17-left2">
-                                <h6><a href="#url">Rôle social</a></h6>
-                                <p>
-                                    ici l'entreprise joue un double rôle celui de fournir des emplois et rechercher l'amélioration de la condition morale et matérielle des agents qui
-                                    collaborent au fonctionnement de celle-ci.
-                                </p>
-                                <a href="about.html" class="actionbg">Lire la suite </a>
+                    @foreach (var OG in Model.Objectives)
+                    {
+                        <div class="col-lg-4 col-md-6 mt-md-0 mt-4">
+                            <div class="features-with-17-right-tp_sur">
+                                <div class="features-with-17-left1 mb-3">
+                                   <a>
+                                        <span aria-hidden="true">
+                                            <img src="@OG.Objective_Icon" alt="about image" class="img-fluid" />
+                                        </span>
+                                   </a> 
+
+                                </div>
+                                <div class="features-with-17-left2">
+                                    <h6><a href="#url">@Html.Raw(OG.Objective_Title)</a></h6>
+                                    <p>
+                                        @Html.Raw(OG.Objective_Description)
+                                    </p>
+                                    <a href="about.html" class="actionbg">Lire la suite </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 mt-lg-0 mt-5">
-                        <div class="features-with-17-right-tp_sur">
-                            <div class="features-with-17-left1 mb-3">
-                                <span class="fa fa-money" aria-hidden="true"></span>
-                            </div>
-                            <div class="features-with-17-left2">
-                                <h6><a href="#url">Rôle financier</a> </h6>
-                                <p>
-                                    qui consiste à assurer la rentabilité de l'entreprise et son équilibre financier dont ces trois rôles apparemment opposés ne peuvent être atteint que par
-                                    le développement de la productivité économique de l'entreprise.
-                                </p>
-                                <a href="about.html" class="actionbg">Lire la suite </a>
-                            </div>
-                        </div>
-                    </div>
+                    }
+                    
                 </div>
             </div>
         </div>

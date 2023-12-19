@@ -1,22 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Cotrageco.Data;
 using Cotrageco.Models;
+using Ganss.Xss;
 
 namespace Cotrageco.Controllers
 {
     public class ObjectivesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IWebHostEnvironment _webHostEnvironment; // Add this line
 
-        public ObjectivesController(ApplicationDbContext context)
+        public ObjectivesController(ApplicationDbContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         // GET: Objectives
@@ -56,13 +54,40 @@ namespace Cotrageco.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ObjectiveId,Objective_Title,Objective_Description,Objective_Icon")] Objective objective)
+        public async Task<IActionResult> Create([Bind("ObjectiveId,Objective_Title,Objective_Description,Objective_Icon")] Objective objective, IFormFile Objective_Icon)
         {
+            // i added ifromfile to the parameter, to accept the image from the view and to process it to save the url in the database
             if (ModelState.IsValid)
             {
-                _context.Add(objective);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                // Check if an image was uploaded
+                if (Objective_Icon != null && Objective_Icon.Length > 0)
+                {
+                    // Generate a unique file name for the image (you can customize this logic)
+                    string uniqueFileName = Guid.NewGuid().ToString() + "_" + Objective_Icon.FileName;
+
+                    // Define the path to save the image in the wwwroot/uploads folder
+                    string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "uploads");
+                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                    // Create the uploads folder if it doesn't exist
+                    Directory.CreateDirectory(uploadsFolder);
+
+                    // Save the uploaded image to the file system
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await Objective_Icon.CopyToAsync(stream);
+                    }
+
+                    // Save the image file path to the database
+                   objective.Objective_Icon = "/uploads/" + uniqueFileName; // Relative path to the image
+
+                    var sanitizer = new HtmlSanitizer();
+                    objective.Objective_Description = sanitizer.Sanitize(objective.Objective_Description);
+
+                    _context.Add(objective);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
             }
             return View(objective);
         }
@@ -88,7 +113,7 @@ namespace Cotrageco.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ObjectiveId,Objective_Title,Objective_Description,Objective_Icon")] Objective objective)
+        public async Task<IActionResult> Edit(int id, [Bind("ObjectiveId,Objective_Title,Objective_Description,Objective_Icon")] Objective objective, IFormFile Objective_Icon)
         {
             if (id != objective.ObjectiveId)
             {
@@ -99,6 +124,30 @@ namespace Cotrageco.Controllers
             {
                 try
                 {
+                    // Check if an image was uploaded
+                    if (Objective_Icon != null && Objective_Icon.Length > 0)
+                    {
+                        // Generate a unique file name for the image (you can customize this logic)
+                        string uniqueFileName = Guid.NewGuid().ToString() + "_" + Objective_Icon.FileName;
+
+                        // Define the path to save the image in the wwwroot/uploads folder
+                        string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "uploads");
+                        string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                        // Create the uploads folder if it doesn't exist
+                        Directory.CreateDirectory(uploadsFolder);
+
+                        // Save the uploaded image to the file system
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await Objective_Icon.CopyToAsync(stream);
+                        }
+
+                        // Save the image file path to the database
+                        objective.Objective_Icon = "/uploads/" + uniqueFileName; // Relative path to the image
+                    }
+
+
                     _context.Update(objective);
                     await _context.SaveChangesAsync();
                 }

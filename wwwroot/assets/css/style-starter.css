@@ -9793,7 +9793,6 @@ h4.sub-title {
 
 .w3l-bootstrap-header nav.navbar {
   background-color: rgba(0, 0, 0, 0.25);
-  position: absolute;
   z-index: 9;
   width: 100%;
   margin: 0 auto;

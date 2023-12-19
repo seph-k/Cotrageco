@@ -4,19 +4,16 @@ using Cotrageco.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Cotrageco.Data.Migrations
+namespace Cotrageco.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231206213953_SecondGenesis")]
-    partial class SecondGenesis
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,7 +34,7 @@ namespace Cotrageco.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Corperate_Icon")
+                    b.Property<string>("Corperate_Image")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -50,6 +47,31 @@ namespace Cotrageco.Data.Migrations
                     b.ToTable("Corperate_Infos");
                 });
 
+            modelBuilder.Entity("Cotrageco.Models.Corperate_Purpose", b =>
+                {
+                    b.Property<int>("Corperate_PurposeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Corperate_PurposeId"));
+
+                    b.Property<string>("Purpose_Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Purpose_Icon")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Purpose_Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Corperate_PurposeId");
+
+                    b.ToTable("Corperate_Purposes");
+                });
+
             modelBuilder.Entity("Cotrageco.Models.Cotrageco_Content", b =>
                 {
                     b.Property<int>("Cotrageco_ContentId")
@@ -58,51 +80,71 @@ namespace Cotrageco.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Cotrageco_ContentId"));
 
-                    b.Property<string>("AboutUs")
+                    b.Property<string>("AboutUs_Banner")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("About_Banner")
+                    b.Property<string>("AboutUs_Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Contact_Banner")
+                    b.Property<string>("AboutUs_Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Cotrageco_bannerHeaderOne")
+                    b.Property<string>("Company_Presentaion")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Cotrageco_bannerHeaderThree")
+                    b.Property<string>("Conatct_Banner")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Cotrageco_bannerHeaderTwo")
+                    b.Property<string>("Contact_Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Cotrageco_bannerHeaderfour")
+                    b.Property<string>("Contact_Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Objectives")
+                    b.Property<string>("OFS_Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Partners")
+                    b.Property<string>("OFS_Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Projects")
+                    b.Property<string>("Objective_Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Resources")
+                    b.Property<string>("Objective_Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Sectors")
+                    b.Property<string>("Presentation_Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Project_Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Project_Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Realisations_Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Realisations_Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Registration_Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -110,11 +152,11 @@ namespace Cotrageco.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Social_Objectives")
+                    b.Property<string>("Services_Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Statistics")
+                    b.Property<string>("Services_Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -156,6 +198,14 @@ namespace Cotrageco.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OFSId"));
 
+                    b.Property<string>("OFS_Icon")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OFS_Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("OFSId");
 
                     b.ToTable("OFSs");
@@ -169,9 +219,70 @@ namespace Cotrageco.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ObjectiveId"));
 
+                    b.Property<string>("Objective_Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Objective_Icon")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Objective_Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("ObjectiveId");
 
                     b.ToTable("Objectives");
+                });
+
+            modelBuilder.Entity("Cotrageco.Models.Our_Realisation", b =>
+                {
+                    b.Property<int>("Our_RealisationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Our_RealisationId"));
+
+                    b.Property<string>("Realisation_Captions")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Realisation_Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Realisation_Image")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Realisation_Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Our_RealisationId");
+
+                    b.ToTable("Our_Realisations");
+                });
+
+            modelBuilder.Entity("Cotrageco.Models.Our_Resource", b =>
+                {
+                    b.Property<int>("Our_ResourceId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Our_ResourceId"));
+
+                    b.Property<string>("Resource_Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Resource_Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Our_ResourceId");
+
+                    b.ToTable("Our_Resources");
                 });
 
             modelBuilder.Entity("Cotrageco.Models.Partner", b =>
@@ -181,6 +292,18 @@ namespace Cotrageco.Data.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PartnerId"));
+
+                    b.Property<string>("Partner_Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Partner_Icon")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Partner_Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("PartnerId");
 
@@ -195,9 +318,80 @@ namespace Cotrageco.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProjectId"));
 
+                    b.Property<string>("Project_Image")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Project_Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("ProjectId");
 
                     b.ToTable("Projects");
+                });
+
+            modelBuilder.Entity("Cotrageco.Models.Registration", b =>
+                {
+                    b.Property<int>("RegistrationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RegistrationId"));
+
+                    b.Property<string>("Registration_Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Registration_Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("RegistrationId");
+
+                    b.ToTable("Registrations");
+                });
+
+            modelBuilder.Entity("Cotrageco.Models.Representation", b =>
+                {
+                    b.Property<int>("RepresentationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RepresentationId"));
+
+                    b.Property<string>("Representation_Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Representation_Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("RepresentationId");
+
+                    b.ToTable("Representations");
+                });
+
+            modelBuilder.Entity("Cotrageco.Models.Sectors_Of_Intervention", b =>
+                {
+                    b.Property<int>("Sectors_Of_InterventionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Sectors_Of_InterventionId"));
+
+                    b.Property<string>("Sectors_Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Sectors_Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Sectors_Of_InterventionId");
+
+                    b.ToTable("Sectors_Of_Interventions");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
