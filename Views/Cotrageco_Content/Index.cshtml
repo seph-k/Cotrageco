@@ -31,18 +31,6 @@
                 @Html.DisplayNameFor(model => model.AboutUs_Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AboutUs_Banner)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Presentation_Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Company_Presentaion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Registration_Description)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.OFS_Title)
             </th>
             <th>
@@ -55,13 +43,16 @@
                 @Html.DisplayNameFor(model => model.Services_Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Services_Banner)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Realisations_Title)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Realisations_Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Purpose_Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Purpose_Description)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Contact_Title)
@@ -70,7 +61,25 @@
                 @Html.DisplayNameFor(model => model.Contact_Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Conatct_Banner)
+                @Html.DisplayNameFor(model => model.Contact_Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Contact_Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Contact_Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AboutUs_Banner)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OFS_Banner)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Services_Banner)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Contact_Banner)
             </th>
             <th></th>
         </tr>
@@ -97,18 +106,6 @@
                 @Html.DisplayFor(modelItem => item.AboutUs_Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.AboutUs_Banner)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Presentation_Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Company_Presentaion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Registration_Description)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.OFS_Title)
             </td>
             <td>
@@ -121,13 +118,16 @@
                 @Html.DisplayFor(modelItem => item.Services_Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Services_Banner)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Realisations_Title)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Realisations_Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Purpose_Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Purpose_Description)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Contact_Title)
@@ -136,7 +136,25 @@
                 @Html.DisplayFor(modelItem => item.Contact_Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Conatct_Banner)
+                @Html.DisplayFor(modelItem => item.Contact_Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Contact_Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Contact_Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AboutUs_Banner)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OFS_Banner)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Services_Banner)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Contact_Banner)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Cotrageco_ContentId">Edit</a> |

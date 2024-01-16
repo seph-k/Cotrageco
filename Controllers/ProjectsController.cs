@@ -7,24 +7,28 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Cotrageco.Data;
 using Cotrageco.Models;
+using Ganss.Xss;
+using Microsoft.AspNetCore.Hosting;
+using System.Security.AccessControl;
 
 namespace Cotrageco.Controllers
 {
     public class ProjectsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public ProjectsController(ApplicationDbContext context)
+        public ProjectsController(ApplicationDbContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         // GET: Projects
         public async Task<IActionResult> Index()
         {
-              return _context.Projects != null ? 
-                          View(await _context.Projects.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Projects'  is null.");
+            var applicationDbContext = _context.Projects.Include(p => p.Project_Title);
+            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Projects/Details/5
@@ -36,6 +40,7 @@ namespace Cotrageco.Controllers
             }
 
             var project = await _context.Projects
+                .Include(p => p.Project_Title)
                 .FirstOrDefaultAsync(m => m.ProjectId == id);
             if (project == null)
             {
@@ -48,6 +53,7 @@ namespace Cotrageco.Controllers
         // GET: Projects/Create
         public IActionResult Create()
         {
+            ViewData["Project_TitleId"] = new SelectList(_context.Project_Titles, "Title", "Title");
             return View();
         }
 
@@ -56,14 +62,42 @@ namespace Cotrageco.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProjectId,Project_Title,Project_Image")] Project project)
+        public async Task<IActionResult> Create([Bind("ProjectId,Project_TitleId,Project_Image")] Project project,IFormFile Project_Image)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(project);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                //_context.Add(project);
+                //await _context.SaveChangesAsync();
+                //return RedirectToAction(nameof(Index));
+
+                // Check if an image was uploaded
+                if (Project_Image != null && Project_Image.Length > 0)
+                {
+                    // Generate a unique file name for the image (you can customize this logic)
+                    string uniqueFileName = Guid.NewGuid().ToString() + "_" + Project_Image.FileName;
+
+                    // Define the path to save the image in the wwwroot/uploads folder
+                    string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "uploads");
+                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                    // Create the uploads folder if it doesn't exist
+                    Directory.CreateDirectory(uploadsFolder);
+
+                    // Save the uploaded image to the file system
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await Project_Image.CopyToAsync(stream);
+                    }
+
+                    // Save the image file path to the database
+                    project.Project_Image = "/uploads/" + uniqueFileName; // Relative path to the image
+
+                    _context.Add(project);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
             }
+            ViewData["Project_TitleId"] = new SelectList(_context.Project_Titles, "Project_TitleId", "Title", project.Project_TitleId);
             return View(project);
         }
 
@@ -80,6 +114,7 @@ namespace Cotrageco.Controllers
             {
                 return NotFound();
             }
+            ViewData["Project_TitleId"] = new SelectList(_context.Project_Titles, "Project_TitleId", "Title", project.Project_TitleId);
             return View(project);
         }
 
@@ -88,7 +123,7 @@ namespace Cotrageco.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProjectId,Project_Title,Project_Image")] Project project)
+        public async Task<IActionResult> Edit(int id, [Bind("ProjectId,Project_TitleId,Project_Image")] Project project, IFormFile Project_Image)
         {
             if (id != project.ProjectId)
             {
@@ -99,6 +134,32 @@ namespace Cotrageco.Controllers
             {
                 try
                 {
+                    if (Project_Image != null && Project_Image.Length > 0)
+                    {
+                        // Generate a unique file name for the image (you can customize this logic)
+                        string uniqueFileName = Guid.NewGuid().ToString() + "_" + Project_Image.FileName;
+
+                        // Define the path to save the image in the wwwroot/uploads folder
+                        string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "uploads");
+                        string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                        // Create the uploads folder if it doesn't exist
+                        Directory.CreateDirectory(uploadsFolder);
+
+                        // Save the uploaded image to the file system
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await Project_Image.CopyToAsync(stream);
+                        }
+
+                        // Save the image file path to the database
+                        project.Project_Image = "/uploads/" + uniqueFileName; // Relative path to the image
+
+                        _context.Add(project);
+                        await _context.SaveChangesAsync();
+                        return RedirectToAction(nameof(Index));
+                    }
+
                     _context.Update(project);
                     await _context.SaveChangesAsync();
                 }
@@ -115,6 +176,7 @@ namespace Cotrageco.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["Project_TitleId"] = new SelectList(_context.Project_Titles, "Project_TitleId", "Title", project.Project_TitleId);
             return View(project);
         }
 
@@ -127,6 +189,7 @@ namespace Cotrageco.Controllers
             }
 
             var project = await _context.Projects
+                .Include(p => p.Project_Title)
                 .FirstOrDefaultAsync(m => m.ProjectId == id);
             if (project == null)
             {

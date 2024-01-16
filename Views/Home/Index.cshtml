@@ -25,51 +25,27 @@
                     </div>
                 </li>
             </div>
-            <div class="item">
-                <li>
-                    <div class="slider-info  banner-view banner-top1 bg bg2" data-selector=".bg.bg2">
-                        <div class="banner-info">
-                            <div class="container">
-                                <div class="banner-info-bg mr-auto">
-                                    <h5>ETUDE</h5>
-                                    <p>Bureau d'étude et réalisation des projets et des programmes dans le domaine publicitaire et communicationnel, santé, éducation, agriculture, élevage, fourniture et distribution des hydrocarbures etc.</p>
-                                    <a class="btn btn-secondary btn-theme2 mt-md-5 mt-4" href="services.html"> Contact Us</a>
+
+            @foreach (var HB in Model.Home_Banners)
+            {
+                var counter = 0;
+                counter++;
+                <div class="item">
+                    <li>
+                        <div class="slider-info  banner-view banner-top@counter bg bg2" data-selector=".bg.bg2">
+                            <div class="banner-info">
+                                <div class="container">
+                                    <div class="banner-info-bg mr-auto">
+                                        <h5> @Html.Raw(HB.Home_Title)</h5>
+                                        <p> @Html.Raw(HB.Home_Description)</p>
+                                        <a class="btn btn-secondary btn-theme2 mt-md-5 mt-4" href="services.html"> Contact Us</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </li>
-            </div>
-            <div class="item">
-                <li>
-                    <div class="slider-info banner-view banner-top2 bg bg2" data-selector=".bg.bg2">
-                        <div class="banner-info">
-                            <div class="container">
-                                <div class="banner-info-bg mr-auto">
-                                    <h5>COMMERCE GENERAL</h5>
-                                    <p> La prestation de tout service généralement quelconque relevant du commerce et de l'industrie en général</p>
-                                    <a class="btn btn-secondary btn-theme2 mt-md-5 mt-4" href="services.html"> About Us</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-            </div>
-            <div class="item">
-                <li>
-                    <div class="slider-info banner-view banner-top3 bg bg2" data-selector=".bg.bg2">
-                        <div class="banner-info">
-                            <div class="container">
-                                <div class="banner-info-bg mr-auto">
-                                    <h5>TRANSPORT - COMMUNICATION</h5>
-                                    <p>Toute activité logistique relative au transport Aérien, ferroviaire, routier, fluvial</p>
-                                    <a class="btn btn-secondary btn-theme2 mt-md-5 mt-4" href="services.html">Lire la suite</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-            </div>
+                    </li>
+                </div>
+            }
         </div>
     </div>
 
@@ -127,6 +103,7 @@
                     </p>
                 }
             </div>
+
             <div class="features-with-17-top_sur mt-5 pt-3">
                 <div class="row">
                     @foreach (var OG in Model.Objectives)
@@ -134,24 +111,16 @@
                         <div class="col-lg-4 col-md-6 mt-md-0 mt-4">
                             <div class="features-with-17-right-tp_sur">
                                 <div class="features-with-17-left1 mb-3">
-                                   <a>
-                                        <span aria-hidden="true">
-                                            <img src="@OG.Objective_Icon" alt="about image" class="img-fluid" />
-                                        </span>
-                                   </a> 
-
+                                    <span aria-hidden="true">  <img src="@OG.Objective_Icon" alt="about image" class="img-fluid" /></span>
                                 </div>
                                 <div class="features-with-17-left2">
                                     <h6><a href="#url">@Html.Raw(OG.Objective_Title)</a></h6>
-                                    <p>
-                                        @Html.Raw(OG.Objective_Description)
-                                    </p>
-                                    <a href="about.html" class="actionbg">Lire la suite </a>
+                                    <p>@Html.Raw(OG.Objective_Description)</p>
+                                    <a href="about.html" class="actionbg">Read More </a>
                                 </div>
                             </div>
                         </div>
                     }
-                    
                 </div>
             </div>
         </div>
@@ -161,30 +130,25 @@
 <!--  About section -->
 <div class="w3l-about1 py-5" id="about">
     <div class="container py-lg-3">
-
-        <div class="aboutgrids row">
+    
+        @foreach (var IP in Model.Corperate_Infos)
+        {
+                    <div class="aboutgrids row">
             <div class="col-lg-6 aboutgrid2">
-                <img src="~/assets/images/abt7.jpg" alt="about image" class="img-fluid" />
+                <img src="@IP.Corperate_Image" alt="about image" class="img-fluid" />
             </div>
             <div class="col-lg-6 aboutgrid1 mt-lg-0 mt-4 pl-lg-5">
-                <h4>Renseignements relatifs a l'objet social</h4>
+                <h4> @Html.Raw(IP.Corperate_Title)</h4>
                 <div class="points">
                     <ul>
-                        <p>
-                        <li>Toute activité logistique, relative au transport aérien, ferroviaire, routier, fluvial</li></p>
-                        <p>
-                        <li>Toute opération ressortissante à la recherche et au développement</li></p>
-                        <p>
-                        <li>La production, l'achat et la vente</li></p>
-                        <p>
-                        <li>L'exportation et l'importation</li></p>
-                        <p>
-                        <li>La prestation de tout service généralement quelconque pertinent dans les secteurs publics que privés à l’échelle provinciale, nationale, internationale</li></p>
+                        <p> @Html.Raw(IP.Corperate_Description)</p>
                     </ul>
                 </div>
                 <a class="btn btn-secondary btn-theme2" href="about.html"> Lire la suite</a>
             </div>
-        </div>
+        </div>            
+        }
+
     </div>
 </div>
 <!--  //About section -->
@@ -233,198 +197,40 @@
     <div id="products4-block" class="text-center">
         <div class="container">
             <div class="heading text-center mx-auto mb-5">
-                <h3 class="head">Tous les projets</h3>
-                <p class="my-3 head"> La Société a pour objet principal, en RDC et à l'étranger, soit par elle-même, soit par l'entremise des tiers, personnes physiques ou personnes morales, soit conjointement, soit en participation ou sous toute autre forme légale, toutes activités se rapportant directement ou indirectement à :</p>
+                @foreach (var CC in Model.cotrageco_Contents)
+                {
+                    <h3 class="head"> @Html.Raw(CC.Project_Title)</h3>
+                    <p class="my-3 head">  @Html.Raw(CC.Project_Description)</p>
+                }
             </div>
-            <input id="tab1" type="radio" name="tabs" checked>
-            <label class="tabtle" for="tab1">Tous les projets</label>
 
-            <input id="tab2" type="radio" name="tabs">
-            <label class="tabtle" for="tab2">GENIE CIVIL</label>
+  
+@*             <input id="tab1" type="radio" name="tabs" checked>
+            <label class="tabtle" for="tab1">Tous les projets</label> *@
 
-            <input id="tab3" type="radio" name="tabs">
-            <label class="tabtle" for="tab3">ETUDE</label>
+            @foreach (var PT in Model.Projects)
+            {
+                var counter = 0;
+                counter++;
+                <input id="tab@counter" type="radio" name="tabs" checked>
+                <label class="tabtle" for="tab@counter"> @Html.Raw(PT.Project_Title.Title)</label>
 
-            <input id="tab4" type="radio" name="tabs">
-            <label class="tabtle" for="tab4">COMMERCE GENERAL</label>
+                <section id="content@counter" class="tab-content text-left">
+                    <div class="d-grid grid-col-3">
+                        <div class="product">
+                            <a href="~/assets/images/p1.jpg" data-lightbox="example-set"
+                               data-title="Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam architecto, ex veritatis">
+                                <figure>
+                                    <img src="@PT.Project_Image" class="img-responsive" alt="" />
+                                </figure>
+                            </a>
 
-            <input id="tab4" type="radio" name="tabs">
-            <label class="tabtle" for="tab4"><a href="services.html">TRANSPORT–COMMUNICATION</a></label>
-
-            <section id="content1" class="tab-content text-left">
-                <div class="d-grid grid-col-3">
-                    <div class="product">
-                        <a href="~/assets/images/p1.jpg" data-lightbox="example-set"
-                           data-title="Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam architecto, ex veritatis">
-                            <figure>
-                                <img src="~/assets/images/p1.jpg" class="img-responsive" alt="" />
-                            </figure>
-                        </a>
-
-                    </div>
-                    <div class="product">
-                        <a href="~/assets/images/p2.jpg" data-lightbox="example-set"
-                           data-title="Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam architecto, ex veritatis">
-                            <figure>
-                                <img src="~/assets/images/p2.jpg" class="img-responsive" alt="" />
-                            </figure>
-                        </a>
+                        </div>
 
                     </div>
-                    <div class="product">
-                        <a href="~/assets/images/p3.jpg" data-lightbox="example-set"
-                           data-title="Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam architecto, ex veritatis">
-                            <figure>
-                                <img src="~/assets/images/p3.jpg" class="img-responsive" alt="" />
-                            </figure>
-                        </a>
+                </section>
+            }
 
-                    </div>
-                    <div class="product">
-                        <a href="~/assets/images/p4.jpg" data-lightbox="example-set"
-                           data-title="Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam architecto, ex veritatis">
-                            <figure>
-                                <img src="~/assets/images/p4.jpg" class="img-responsive" alt="" />
-                            </figure>
-                        </a>
-
-                    </div>
-                    <div class="product">
-                        <a href="~/assets/images/p5.jpg" data-lightbox="example-set"
-                           data-title="Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam architecto, ex veritatis">
-                            <figure>
-                                <img src="~/assets/images/p5.jpg" class="img-responsive" alt="" />
-                            </figure>
-                        </a>
-
-                    </div>
-                    <div class="product">
-                        <a href="~/assets/images/p6.jpg" data-lightbox="example-set"
-                           data-title="Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam architecto, ex veritatis">
-                            <figure>
-                                <img src="~/assets/images/p6.jpg" class="img-responsive" alt="" />
-                            </figure>
-                        </a>
-
-                    </div>
-
-
-                </div>
-            </section>
-
-            <section id="content2" class="tab-content text-left">
-                <div class="d-grid grid-col-3">
-                    <div class="product">
-                        <a href="~/assets/images/p7.jpg" data-lightbox="example-set"
-                           data-title="Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam architecto, ex veritatis">
-                            <figure>
-                                <img src="~/assets/images/p7.jpg" class="img-responsive" alt="" />
-                            </figure>
-                        </a>
-
-                    </div>
-                    <div class="product">
-                        <a href="~/assets/images/p8.jpg" data-lightbox="example-set"
-                           data-title="Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam architecto, ex veritatis">
-                            <figure>
-                                <img src="~/assets/images/p8.jpg" class="img-responsive" alt="" />
-                            </figure>
-                        </a>
-
-                    </div>
-                    <div class="product">
-                        <a href="~/assets/images/p9.jpg" data-lightbox="example-set"
-                           data-title="Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam architecto, ex veritatis">
-                            <figure>
-                                <img src="~/assets/images/p9.jpg" class="img-responsive" alt="" />
-                            </figure>
-                        </a>
-
-                    </div>
-                    <div class="product">
-                        <a href="~/assets/images/p10.jpg" data-lightbox="example-set"
-                           data-title="Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam architecto, ex veritatis">
-                            <figure>
-                                <img src="~/assets/images/p10.jpg" class="img-responsive" alt="" />
-                            </figure>
-                        </a>
-
-                    </div>
-                    <div class="product">
-                        <a href="~/assets/images/p11.jpg" data-lightbox="example-set"
-                           data-title="Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam architecto, ex veritatis">
-                            <figure>
-                                <img src="~/assets/images/p11.jpg" class="img-responsive" alt="" />
-                            </figure>
-                        </a>
-
-                    </div>
-                    <div class="product">
-                        <a href="~/assets/images/p12.jpg" data-lightbox="example-set"
-                           data-title="Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam architecto, ex veritatis">
-                            <figure>
-                                <img src="~/assets/images/p12.jpg" class="img-responsive" alt="" />
-                            </figure>
-                        </a>
-
-                    </div>
-                </div>
-            </section>
-
-            <section id="content3" class="tab-content text-left">
-                <div class="d-grid grid-col-3">
-                    <div class="product">
-                        <a href="~/assets/images/p13.jpg" data-lightbox="example-set"
-                           data-title="Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam architecto, ex veritatis">
-                            <figure>
-                                <img src="~/assets/images/p13.jpg" class="img-responsive" alt="" />
-                            </figure>
-                        </a>
-
-                    </div>
-                    <div class="product">
-                        <a href="~/assets/images/p14.jpg" data-lightbox="example-set"
-                           data-title="Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam architecto, ex veritatis">
-                            <figure>
-                                <img src="~/assets/images/p14.jpg" class="img-responsive" alt="" />
-                            </figure>
-                        </a>
-
-                    </div>
-                    <div class="product">
-                        <a href="~/assets/images/p15.jpg" data-lightbox="example-set"
-                           data-title="Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam architecto, ex veritatis">
-                            <figure>
-                                <img src="~/assets/images/p15.jpg" class="img-responsive" alt="" />
-                            </figure>
-                        </a>
-
-                    </div>
-                </div>
-            </section>
-
-            <section id="content4" class="tab-content text-left">
-                <div class="d-grid grid-col-3">
-                    <div class="product">
-                        <a href="~/assets/images/p16.jpg" data-lightbox="example-set"
-                           data-title="Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam architecto, ex veritatis">
-                            <figure>
-                                <img src="~/assets/images/p16.jpg" class="img-responsive" alt="" />
-                            </figure>
-                        </a>
-
-                    </div>
-                    <div class="product">
-                        <a href="~/assets/images/p17.jpg" data-lightbox="example-set"
-                           data-title="Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam architecto, ex veritatis">
-                            <figure>
-                                <img src="~/assets/images/p17.jpg" class="img-responsive" alt="" />
-                            </figure>
-                        </a>
-
-                    </div>
-                </div>
-            </section>
         </div>
     </div>
     <!-- Products4 block -->

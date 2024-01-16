@@ -9,6 +9,8 @@ namespace Cotrageco.ViewModel
         //to display items from content table in the database
         public IEnumerable<Cotrageco_Content> cotrageco_Contents { get; set; }
 
+        public IEnumerable<Home_Banner> Home_Banners { get; set; }
+
         //to display items from the objectives table in the database
         public IEnumerable<Objective> Objectives { get; set; }
 
@@ -17,5 +19,6 @@ namespace Cotrageco.ViewModel
 
         //to display items from the projects table in the database
         public IEnumerable<Project> Projects { get; set; }
+
     }
 }

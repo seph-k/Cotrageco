@@ -4,9 +4,8 @@
     {
         public int Our_RealisationId { get; set; }
 
-        public string Realisation_Title { get; set; }
-        public string Realisation_Description { get; set; }
-        public string Realisation_Captions { get; set; }
-        public string Realisation_Image { get; set; }
+        public int? Realisation_CaptionId { get; set; }
+        public virtual Realisation_Caption? Realisation_Captions { get; set; }
+        public string? Realisation_Image { get; set; }
     }
 }

@@ -13,10 +13,12 @@ namespace Cotrageco.Controllers
     public class OFSController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IWebHostEnvironment _webHostEnvironment; // Add this line
 
-        public OFSController(ApplicationDbContext context)
+        public OFSController(ApplicationDbContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         // GET: OFS
@@ -56,13 +58,42 @@ namespace Cotrageco.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("OFSId,OFS_Title,OFS_Icon")] OFS oFS)
+        public async Task<IActionResult> Create([Bind("OFSId,OFS_Title,OFS_Icon")] OFS oFS, IFormFile OFS_Icon)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(oFS);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+
+                // Check if an image was uploaded
+                if (OFS_Icon != null && OFS_Icon.Length > 0)
+                {
+                    // Generate a unique file name for the image (you can customize this logic)
+                    string uniqueFileName = Guid.NewGuid().ToString() + "_" + OFS_Icon.FileName;
+
+                    // Define the path to save the image in the wwwroot/uploads folder
+                    string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "uploads");
+                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                    // Create the uploads folder if it doesn't exist
+                    Directory.CreateDirectory(uploadsFolder);
+
+                    // Save the uploaded image to the file system
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await OFS_Icon.CopyToAsync(stream);
+                    }
+
+                    // Save the image file path to the database
+                    oFS.OFS_Icon = "/uploads/" + uniqueFileName; // Relative path to the image
+
+                    //var sanitizer = new HtmlSanitizer();
+                    //oFS.OFS_Title = sanitizer.Sanitize(oFS.OFS_Title);
+
+
+                    _context.Add(oFS);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+
             }
             return View(oFS);
         }
@@ -88,7 +119,7 @@ namespace Cotrageco.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("OFSId,OFS_Title,OFS_Icon")] OFS oFS)
+        public async Task<IActionResult> Edit(int id, [Bind("OFSId,OFS_Title,OFS_Icon")] OFS oFS, IFormFile OFS_Icon)
         {
             if (id != oFS.OFSId)
             {
@@ -99,6 +130,30 @@ namespace Cotrageco.Controllers
             {
                 try
                 {
+                    // Check if an image was uploaded
+                    if (OFS_Icon != null && OFS_Icon.Length > 0)
+                    {
+                        // Generate a unique file name for the image (you can customize this logic)
+                        string uniqueFileName = Guid.NewGuid().ToString() + "_" + OFS_Icon.FileName;
+
+                        // Define the path to save the image in the wwwroot/uploads folder
+                        string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "uploads");
+                        string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                        // Create the uploads folder if it doesn't exist
+                        Directory.CreateDirectory(uploadsFolder);
+
+                        // Save the uploaded image to the file system
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await OFS_Icon.CopyToAsync(stream);
+                        }
+
+                        // Save the image file path to the database
+                        oFS.OFS_Icon = "/uploads/" + uniqueFileName; // Relative path to the image
+                    }
+
+
                     _context.Update(oFS);
                     await _context.SaveChangesAsync();
                 }

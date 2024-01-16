@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Cotrageco.Models.Banner>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AboutUs_Banner)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OFS_Banner)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Services_Banner)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Contact_Banner)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AboutUs_Banner)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OFS_Banner)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Services_Banner)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Contact_Banner)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.BannerId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.BannerId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.BannerId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

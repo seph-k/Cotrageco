@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Cotrageco.Models.Corperate_Purpose>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Purpose_Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Purpose_Icon)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Purpose_Description)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Purpose_Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Purpose_Icon)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Purpose_Description)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Corperate_PurposeId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Corperate_PurposeId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Corperate_PurposeId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

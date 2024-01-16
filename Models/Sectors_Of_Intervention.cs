@@ -6,5 +6,6 @@
 
         public string Sectors_Title { get; set; }
         public string Sectors_Description { get; set; }
+        public string? Sectors_Image { get; set; }
     }
 }

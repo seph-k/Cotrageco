@@ -5,6 +5,6 @@
         public int OFSId { get; set; }
 
         public string OFS_Title { get; set; }
-        public string OFS_Icon { get; set; }
+        public string? OFS_Icon { get; set; }
     }
 }

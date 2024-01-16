@@ -6,5 +6,6 @@
 
         public string Registration_Title { get; set; }
         public string Registration_Description { get; set; }
+        public string? Registration_Image { get; set; }
     }
 }

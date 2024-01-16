@@ -13,10 +13,12 @@ namespace Cotrageco.Controllers
     public class PartnersController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IWebHostEnvironment _webHostEnvironment; // Add this line
 
-        public PartnersController(ApplicationDbContext context)
+        public PartnersController(ApplicationDbContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         // GET: Partners
@@ -56,13 +58,42 @@ namespace Cotrageco.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PartnerId,Partner_Title,Partner_Description,Partner_Icon")] Partner partner)
+        public async Task<IActionResult> Create([Bind("PartnerId,Partner_Title,Partner_Description,Partner_Icon")] Partner partner, IFormFile Partner_Icon)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(partner);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+
+                // Check if an image was uploaded
+                if (Partner_Icon != null && Partner_Icon.Length > 0)
+                {
+                    // Generate a unique file name for the image (you can customize this logic)
+                    string uniqueFileName = Guid.NewGuid().ToString() + "_" + Partner_Icon.FileName;
+
+                    // Define the path to save the image in the wwwroot/uploads folder
+                    string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "uploads");
+                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                    // Create the uploads folder if it doesn't exist
+                    Directory.CreateDirectory(uploadsFolder);
+
+                    // Save the uploaded image to the file system
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await Partner_Icon.CopyToAsync(stream);
+                    }
+
+                    // Save the image file path to the database
+                    partner.Partner_Icon = "/uploads/" + uniqueFileName; // Relative path to the image
+
+
+
+                    _context.Add(partner);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+
+
+
             }
             return View(partner);
         }
@@ -88,7 +119,7 @@ namespace Cotrageco.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PartnerId,Partner_Title,Partner_Description,Partner_Icon")] Partner partner)
+        public async Task<IActionResult> Edit(int id, [Bind("PartnerId,Partner_Title,Partner_Description,Partner_Icon")] Partner partner, IFormFile Partner_Icon)
         {
             if (id != partner.PartnerId)
             {
@@ -99,6 +130,30 @@ namespace Cotrageco.Controllers
             {
                 try
                 {
+                    // Check if an image was uploaded
+                    if (Partner_Icon != null && Partner_Icon.Length > 0)
+                    {
+                        // Generate a unique file name for the image (you can customize this logic)
+                        string uniqueFileName = Guid.NewGuid().ToString() + "_" + Partner_Icon.FileName;
+
+                        // Define the path to save the image in the wwwroot/uploads folder
+                        string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "uploads");
+                        string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                        // Create the uploads folder if it doesn't exist
+                        Directory.CreateDirectory(uploadsFolder);
+
+                        // Save the uploaded image to the file system
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await Partner_Icon.CopyToAsync(stream);
+                        }
+
+                        // Save the image file path to the database
+                        partner.Partner_Icon = "/uploads/" + uniqueFileName; // Relative path to the image
+                    }
+
+
                     _context.Update(partner);
                     await _context.SaveChangesAsync();
                 }

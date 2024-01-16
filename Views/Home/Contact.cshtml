@@ -1,4 +1,5 @@
-﻿
+﻿@model Cotrageco.ViewModel.ContactViewModel
+
 @{
     ViewData["Title"] = "Contact";
 }
@@ -7,10 +8,13 @@
     <div class="breadcrum-bg">
         <div class="container py-5">
             <p><a href="index.html">Accueil</a> &nbsp; / &nbsp; Contactez</p>
-            <h2 class="my-3">Contactez-nous</h2>
-
-            <p>Vous avez des questions ou des demandes de renseignements ? Nous sommes là pour vous aider ! N’hésitez pas à nous contacter pour obtenir des solutions sur mesure, des opportunités de collaboration ou toute information dont vous pourriez avoir besoin. Votre satisfaction est notre priorité.</p>
-        </div>
+            @foreach (var CC in Model.cotrageco_Contents)
+            {
+                <h2 class="my-3">@Html.Raw(CC.Contact_Title)</h2>
+                <p>@Html.Raw(CC.Contact_Description)</p>
+                <!-- Contact_Banner-->
+            }
+ </div>
     </div>
 </section>
 <!-- contact -->

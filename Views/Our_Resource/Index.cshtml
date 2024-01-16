@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Cotrageco.Models.Our_Resource>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Resource_Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Resource_Description)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Resource_Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Resource_Description)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Our_ResourceId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Our_ResourceId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Our_ResourceId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

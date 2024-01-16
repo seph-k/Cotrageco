@@ -6,7 +6,7 @@
 
         public string Partner_Title { get; set; }
         public string Partner_Description { get; set; }
-        public string Partner_Icon { get; set; }
+        public string? Partner_Icon { get; set; }
 
     }
 }
