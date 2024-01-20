@@ -192,6 +192,40 @@
     </div>
     <!-- //specifications -->
 </section>
+
+@* here is the code from the home page for the projects  *@
+
+<style>
+    .tab-container {
+        display: flex;
+        flex-wrap: wrap; /* Wrap tabs to next line if they don't fit in one line */
+    }
+
+    .tab {
+        margin-right: 10px; /* Adjust margin as needed */
+    }
+
+    .tab-content {
+        display: none;
+    }
+
+    #content1 {
+        display: block;
+    }
+
+    #tab1:checked ~ #content1,
+    #tab2:checked ~ #content2,
+    #tab3:checked ~ #content3,
+    /* Add more as needed */
+    #tabN:checked ~ #contentN {
+        display: block;
+    }
+
+    #tab2:checked:not(#tab1:checked) ~ #content1 {
+        display: none;
+    }
+</style>
+
 <div class="products-4" id="gallery">
     <!-- Products4 block -->
     <div id="products4-block" class="text-center">
@@ -204,36 +238,71 @@
                 }
             </div>
 
-  
-@*             <input id="tab1" type="radio" name="tabs" checked>
-            <label class="tabtle" for="tab1">Tous les projets</label> *@
+            <div class="tab-container">
+                <input id="tab1" type="radio" name="tabs" checked class="tab">
+                <label class="tabtle" for="tab1">Tous les projets</label>
 
-            @foreach (var PT in Model.Projects)
-            {
-                var counter = 0;
-                counter++;
-                <input id="tab@counter" type="radio" name="tabs" checked>
-                <label class="tabtle" for="tab@counter"> @Html.Raw(PT.Project_Title.Title)</label>
+                @{
+                    var counterr = 2;
+                } <!-- Initialize counter outside the loop -->
+                @foreach (var PT in Model.Projects)
+                {
+                    <input id="tab@(counterr)" type="radio" name="tabs" class="tab">
+                    <label class="tabtle" for="tab@(counterr)"> @Html.Raw(PT.Project_Title.Title)</label>
 
-                <section id="content@counter" class="tab-content text-left">
-                    <div class="d-grid grid-col-3">
+                    counterr++;
+                }
+            </div>
+
+            <section id="content1" class="tab-content text-left">
+                <div class="d-grid grid-col-3">
+                    @foreach (var PT in Model.Projects)
+                    {
                         <div class="product">
-                            <a href="~/assets/images/p1.jpg" data-lightbox="example-set"
+                            <a href="@PT.Project_Image" data-lightbox="example-set"
                                data-title="Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam architecto, ex veritatis">
                                 <figure>
                                     <img src="@PT.Project_Image" class="img-responsive" alt="" />
                                 </figure>
                             </a>
-
                         </div>
+                    }
+                </div>
+            </section>
 
+            @{
+                var counterrr = 2;
+            } <!-- Initialize counter outside the loop -->
+            @foreach (var PT in Model.Projects)
+            {
+                <section id="content@(counterrr)" class="tab-content text-left">
+                    <div class="d-grid grid-col-3">
+                        <div class="product">
+                            <a href="@PT.Project_Image" data-lightbox="example-set"
+                               data-title="Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam architecto, ex veritatis">
+                                <figure>
+                                    <img src="@PT.Project_Image" class="img-responsive" alt="" />
+                                </figure>
+                            </a>
+                        </div>
                     </div>
                 </section>
-            }
 
+                counterrr++;
+            }
         </div>
     </div>
     <!-- Products4 block -->
 </div>
+
+
+
 <script src="~/assets/js/jquery-3.3.1.min.js"></script>
 <script src="~/assets/js/lightbox-plus-jquery.min.js"></script>
+<script>
+    // Reinitialize Lightbox after dynamically adding content
+    lightbox.option({
+        'resizeDuration': 200,
+        'wrapAround': true
+    });
+</script>
