@@ -22,10 +22,6 @@
         public string Contact_Address { get; set; }
         public string Contact_Email { get; set; }
         public string Contact_Phone { get; set; }
-        public string? AboutUs_Banner { get; set; }  // Nullable property
-        public string? OFS_Banner { get; set; }       // Nullable property
-        public string? Services_Banner { get; set; }  // Nullable property
-        public string? Contact_Banner { get; set; }   // Nullable property
 
     }
 }
