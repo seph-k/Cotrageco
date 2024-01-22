@@ -13,10 +13,13 @@ namespace Cotrageco.Controllers
     public class BannersController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IWebHostEnvironment _webHostEnvironment; // Add this line
 
-        public BannersController(ApplicationDbContext context)
+
+        public BannersController(ApplicationDbContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         // GET: Banners
@@ -45,6 +48,37 @@ namespace Cotrageco.Controllers
             return View(banner);
         }
 
+        // Helper method to save the uploaded image
+        private async Task<string> SaveImage(IFormFile file)
+        {
+
+            if (file != null && file.Length > 0)
+            {
+                // Generate a unique file name for the image (you can customize this logic)
+                string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+
+                // Define the path to save the image in the wwwroot/uploads folder
+                string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "uploads");
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                // Create the uploads folder if it doesn't exist
+                Directory.CreateDirectory(uploadsFolder);
+
+                // Save the uploaded image to the file system
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await file.CopyToAsync(stream);
+                }
+
+                // Save the image file path to the database
+                var filepath = "/uploads/" + uniqueFileName; // Relative path to the image
+
+                return filePath; // Return the file path
+            }
+
+            return null; // No file uploaded
+        }
+
         // GET: Banners/Create
         public IActionResult Create()
         {
@@ -56,10 +90,17 @@ namespace Cotrageco.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("BannerId,AboutUs_Banner,OFS_Banner,Services_Banner,Contact_Banner")] Banner banner)
+        public async Task<IActionResult> Create([Bind("BannerId,Website_Logo,AboutUs_Banner,OFS_Banner,Services_Banner,Contact_Banner")] Banner banner, IFormFile Website_Logo, IFormFile AboutUs_Banner, IFormFile OFS_Banner, IFormFile Services_Banner, IFormFile Contact_Banner)
         {
             if (ModelState.IsValid)
             {
+                // Save the uploaded images
+                banner.Website_Logo = await SaveImage(Website_Logo);
+                banner.AboutUs_Banner = await SaveImage(AboutUs_Banner);
+                banner.OFS_Banner = await SaveImage(OFS_Banner);
+                banner.Services_Banner = await SaveImage(Services_Banner);
+                banner.Contact_Banner = await SaveImage(Contact_Banner);
+
                 _context.Add(banner);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -88,7 +129,7 @@ namespace Cotrageco.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("BannerId,AboutUs_Banner,OFS_Banner,Services_Banner,Contact_Banner")] Banner banner)
+        public async Task<IActionResult> Edit(int id, [Bind("BannerId,Website_Logo,AboutUs_Banner,OFS_Banner,Services_Banner,Contact_Banner")] Banner banner, IFormFile Website_Logo, IFormFile AboutUs_Banner, IFormFile OFS_Banner, IFormFile Services_Banner, IFormFile Contact_Banner)
         {
             if (id != banner.BannerId)
             {
