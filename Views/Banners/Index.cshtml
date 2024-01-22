@@ -13,6 +13,9 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.Website_Logo)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.AboutUs_Banner)
             </th>
             <th>
@@ -30,6 +33,9 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Website_Logo)
+                </td>
             <td>
                 @Html.DisplayFor(modelItem => item.AboutUs_Banner)
             </td>
