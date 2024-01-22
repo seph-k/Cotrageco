@@ -56,7 +56,7 @@ namespace Cotrageco.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Cotrageco_ContentId,Objective_Title,Objective_Description,Project_Title,Project_Description,AboutUs_Title,AboutUs_Description,OFS_Title,OFS_Description,Services_Title,Services_Description,Realisations_Title,Realisations_Description,Purpose_Title,Purpose_Description,Contact_Title,Contact_Description,Contact_Address,Contact_Email,Contact_Phone,AboutUs_Banner,OFS_Banner,Services_Banner,Contact_Banner")] Cotrageco_Content cotrageco_Content)
+        public async Task<IActionResult> Create([Bind("Cotrageco_ContentId,Objective_Title,Objective_Description,Project_Title,Project_Description,AboutUs_Title,AboutUs_Description,OFS_Title,OFS_Description,Services_Title,Services_Description,Realisations_Title,Realisations_Description,Purpose_Title,Purpose_Description,Contact_Title,Contact_Description,Contact_Address,Contact_Email,Contact_Phone")] Cotrageco_Content cotrageco_Content)
         {
             if (ModelState.IsValid)
             {
@@ -88,7 +88,7 @@ namespace Cotrageco.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Cotrageco_ContentId,Objective_Title,Objective_Description,Project_Title,Project_Description,AboutUs_Title,AboutUs_Description,OFS_Title,OFS_Description,Services_Title,Services_Description,Realisations_Title,Realisations_Description,Purpose_Title,Purpose_Description,Contact_Title,Contact_Description,Contact_Address,Contact_Email,Contact_Phone,AboutUs_Banner,OFS_Banner,Services_Banner,Contact_Banner")] Cotrageco_Content cotrageco_Content)
+        public async Task<IActionResult> Edit(int id, [Bind("Cotrageco_ContentId,Objective_Title,Objective_Description,Project_Title,Project_Description,AboutUs_Title,AboutUs_Description,OFS_Title,OFS_Description,Services_Title,Services_Description,Realisations_Title,Realisations_Description,Purpose_Title,Purpose_Description,Contact_Title,Contact_Description,Contact_Address,Contact_Email,Contact_Phone")] Cotrageco_Content cotrageco_Content)
         {
             if (id != cotrageco_Content.Cotrageco_ContentId)
             {
