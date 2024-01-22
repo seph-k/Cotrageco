@@ -4,6 +4,7 @@ using Cotrageco.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cotrageco.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240122133641_TheCreationsCreation")]
+    partial class TheCreationsCreation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -106,6 +109,9 @@ namespace Cotrageco.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Cotrageco_ContentId"));
 
+                    b.Property<string>("AboutUs_Banner")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("AboutUs_Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -116,6 +122,9 @@ namespace Cotrageco.Migrations
 
                     b.Property<string>("Contact_Address")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Contact_Banner")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Contact_Description")
@@ -132,6 +141,9 @@ namespace Cotrageco.Migrations
 
                     b.Property<string>("Contact_Title")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OFS_Banner")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("OFS_Description")
@@ -172,6 +184,9 @@ namespace Cotrageco.Migrations
 
                     b.Property<string>("Realisations_Title")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Services_Banner")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Services_Description")
