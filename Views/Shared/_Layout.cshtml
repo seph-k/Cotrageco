@@ -33,6 +33,12 @@
 
     <!-- Include Summernote JS -->
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+
+    <!-- To make the dropdown work -->
+    <title>Bootstrap 4.4.1 Dropdown Example</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -52,22 +58,47 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mx-auto">
-                        <li class="nav-item">
+                        <li class="nav-item mr-1">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item mr-1">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item mr-1">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Services">Services</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item mr-1">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
+                        </li>
+                        <li class="nav-item dropdown mr-1">
+                            <a class="nav-link text-dark dropdown-toggle" href="Home" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Pages
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+                                <!-- Add dropdown items here -->
+                                <a class="dropdown-item" href="/Banners">Banners</a>
+                                <a class="dropdown-item" href="/Corperate_Info">Corperate_Info</a>
+                                <a class="dropdown-item" href="/Corperate_Purpose">Corperate_Purpose</a>
+                                <a class="dropdown-item" href="/Cotrageco_Content">Cotrageco_Content</a>
+                                <a class="dropdown-item" href="/Home_Banner">Home_Banner</a>
+                                <a class="dropdown-item" href="/Objectives">Objectives</a>
+                                <a class="dropdown-item" href="/OFS">OFS</a>
+                                <a class="dropdown-item" href="/Our_Realisation">Our_Realisation</a>
+                                <a class="dropdown-item" href="/Our_Resource">Our_Resource</a>
+                                <a class="dropdown-item" href="/Partners">Partners</a>
+                                <a class="dropdown-item" href="/Project_Title">Project_Title</a>
+                                <a class="dropdown-item" href="/Projects">Projects</a>
+                                <a class="dropdown-item" href="/Realisation_Caption">Realisation_Caption</a>
+                                <a class="dropdown-item" href="/Registrations">Registrations</a>
+                                <a class="dropdown-item" href="/Representations">Representations</a>
+                                <a class="dropdown-item" href="/Sectors_Of_Intervention">Sectors_Of_Intervention</a>
+                                <!-- Add more pages as needed -->
+                            </div>
                         </li>
                     </ul>
                     <partial name="_LoginPartial" />
 
-                    <div class="main-social-head">
+                    <div class="main-social-head ml-1">
                         <a href="#facebook" class="facebook"><span class="fa fa-facebook"></span></a>
                         <a href="#twitter" class="twitter"><span class="fa fa-twitter"></span></a>
                         <a href="#instagram" class="instagram"><span class="fa fa-instagram"></span></a>
