@@ -31,7 +31,13 @@
 
                             <div class="cont-add-rgt">
                                 <h4>Address:</h4>
-                                <p class="contact-text-sub">78 Avenue Andre Lumbu, Golf Maisha,<br> Lubumbashi, Haut-Katanga, <br>Democratic Republic of Congo</p>
+                                @foreach (var CC in Model.cotrageco_Contents)
+                                {
+@*                                     <p class="contact-text-sub">78 Avenue Andre Lumbu, Golf Maisha,<br> Lubumbashi, Haut-Katanga, <br>Democratic Republic of Congo</p>
+*@
+                                    <p class="contact-text-sub">@Html.Raw(CC.Contact_Address)</p>
+
+                                }
                             </div>
                             <div class="cont-add-lft">
                                 <span class="fa fa-map-marker" aria-hidden="true"></span>
@@ -42,7 +48,11 @@
                             <div class="cont-add-rgt">
                                 <h4>Email:</h4>
                                 <a href="mailto:info@example.com">
-                                    <p class="contact-text-sub">cotragecosarlfalmulu@gmail.com</p>
+                                    @foreach (var CC in Model.cotrageco_Contents)
+                                    {
+                                        <p class="contact-text-sub">@Html.Raw(CC.Contact_Email)</p>
+
+                                    }
                                 </a>
                             </div>
                             <div class="cont-add-lft">
@@ -53,12 +63,12 @@
 
                             <div class="cont-add-rgt">
                                 <h4>Phone:</h4>
-                                <a href="tel:(+243) 81 049 48 88">
-                                    <p class="contact-text-sub">(+243) 81 049 48 88 </p>
-                                </a>
-                                <a href="tel:(+243) 99 72 93 031">
-                                    <p class="contact-text-sub">(+243) 99 72 93 031</p>
-                                </a>
+                                @foreach (var CC in Model.cotrageco_Contents)
+                                {
+                                    <a href="tel:@Html.Raw(CC.Contact_Phone)">
+                                        <p class="contact-text-sub">@Html.Raw(CC.Contact_Phone) </p>
+                                    </a>                                    
+                                }
                             </div>
                             <div class="cont-add-lft">
                                 <span class="fa fa-phone" aria-hidden="true"></span>
