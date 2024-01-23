@@ -22,6 +22,10 @@
         public string Contact_Address { get; set; }
         public string Contact_Email { get; set; }
         public string Contact_Phone { get; set; }
+        public string Resource_Title { get; set; }
+        public string Resource_Description { get; set; }
+        public string Representation_Title { get; set; }
+        public string Representation_Description { get; set; }
 
     }
 }

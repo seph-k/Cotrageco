@@ -24,8 +24,6 @@ namespace Cotrageco.Data
 
         public DbSet<Sectors_Of_Intervention> Sectors_Of_Interventions { get; set; } 
         public DbSet<Registration> Registrations { get; set; } 
-        public DbSet<Our_Resource> Our_Resources { get; set; } 
-        public DbSet<Representation> Representations { get; set; } 
         public DbSet<Our_Realisation> Our_Realisations { get; set; } 
         public DbSet<Corperate_Purpose> Corperate_Purposes { get; set; }
         public DbSet<Project_Title> Project_Titles { get; set; }

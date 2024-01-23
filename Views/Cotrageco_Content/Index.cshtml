@@ -69,6 +69,18 @@
             <th>
                 @Html.DisplayNameFor(model => model.Contact_Phone)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Resource_Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Resource_Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Representation_Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Representation_Description)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -132,6 +144,18 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Contact_Phone)
             </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Resource_Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Resource_Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Representation_Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Representation_Description)
+                </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Cotrageco_ContentId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Cotrageco_ContentId">Details</a> |

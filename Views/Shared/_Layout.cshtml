@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@inject RoleManager<IdentityRole> RoleManager
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <!-- Required meta tags -->
@@ -70,31 +75,32 @@
                         <li class="nav-item mr-1">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
                         </li>
-                        <li class="nav-item dropdown mr-1">
-                            <a class="nav-link text-dark dropdown-toggle" href="Home" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Pages
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-                                <!-- Add dropdown items here -->
-                                <a class="dropdown-item" href="/Banners">Banners</a>
-                                <a class="dropdown-item" href="/Corperate_Info">Corperate_Info</a>
-                                <a class="dropdown-item" href="/Corperate_Purpose">Corperate_Purpose</a>
-                                <a class="dropdown-item" href="/Cotrageco_Content">Cotrageco_Content</a>
-                                <a class="dropdown-item" href="/Home_Banner">Home_Banner</a>
-                                <a class="dropdown-item" href="/Objectives">Objectives</a>
-                                <a class="dropdown-item" href="/OFS">OFS</a>
-                                <a class="dropdown-item" href="/Our_Realisation">Our_Realisation</a>
-                                <a class="dropdown-item" href="/Our_Resource">Our_Resource</a>
-                                <a class="dropdown-item" href="/Partners">Partners</a>
-                                <a class="dropdown-item" href="/Project_Title">Project_Title</a>
-                                <a class="dropdown-item" href="/Projects">Projects</a>
-                                <a class="dropdown-item" href="/Realisation_Caption">Realisation_Caption</a>
-                                <a class="dropdown-item" href="/Registrations">Registrations</a>
-                                <a class="dropdown-item" href="/Representations">Representations</a>
-                                <a class="dropdown-item" href="/Sectors_Of_Intervention">Sectors_Of_Intervention</a>
-                                <!-- Add more pages as needed -->
-                            </div>
-                        </li>
+                        @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item dropdown mr-1">
+                                <a class="nav-link text-dark dropdown-toggle" href="Home" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Pages
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+                                    <!-- Add dropdown items here -->
+                                    <a class="dropdown-item" href="/Banners">Banners</a>
+                                    <a class="dropdown-item" href="/Corperate_Info">Corperate_Info</a>
+                                    <a class="dropdown-item" href="/Corperate_Purpose">Corperate_Purpose</a>
+                                    <a class="dropdown-item" href="/Cotrageco_Content">Cotrageco_Content</a>
+                                    <a class="dropdown-item" href="/Home_Banner">Home_Banner</a>
+                                    <a class="dropdown-item" href="/Objectives">Objectives</a>
+                                    <a class="dropdown-item" href="/OFS">OFS</a>
+                                    <a class="dropdown-item" href="/Our_Realisation">Our_Realisation</a>
+                                    <a class="dropdown-item" href="/Partners">Partners</a>
+                                    <a class="dropdown-item" href="/Project_Title">Project_Title</a>
+                                    <a class="dropdown-item" href="/Projects">Projects</a>
+                                    <a class="dropdown-item" href="/Realisation_Caption">Realisation_Caption</a>
+                                    <a class="dropdown-item" href="/Registrations">Registrations</a>
+                                    <a class="dropdown-item" href="/Sectors_Of_Intervention">Sectors_Of_Intervention</a>
+                                    <!-- Add more pages as needed -->
+                                </div>
+                            </li>
+                        }
                     </ul>
                     <partial name="_LoginPartial" />
 

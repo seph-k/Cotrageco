@@ -12751,12 +12751,12 @@ ul.partners-icon li span.fa:hover {
     margin: 3em 0; } }
 
 .w3l-about-breadcrum .breadcrum-bg {
-  background-size: cover;
+/*  background-size: cover;
   background-image: linear-gradient(to right, rgba(42, 42, 42, 0.71), rgba(38, 40, 40, 0.78)), url(../images/indx5.jpg);
   background-repeat: no-repeat, no-repeat, no-repeat;
   background-position: center;
   background-attachment: fixed;
-  padding-top: 86px; }
+  padding-top: 86px;*/ }
 
 .w3l-about-breadcrum .bread-crub-top {
   display: grid;

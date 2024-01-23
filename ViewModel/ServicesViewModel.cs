@@ -7,5 +7,6 @@ namespace Cotrageco.ViewModel
         public IEnumerable<Cotrageco_Content> cotrageco_Contents { get; set; }
         public IEnumerable<Our_Realisation> Our_Realisations { get; set; }
         public IEnumerable<Corperate_Purpose> Corperate_Purposes { get; set; }
+        public IEnumerable<Banner> Banner { get; set; }
     }
 }

@@ -26,6 +26,7 @@ namespace Cotrageco.Controllers
             var corperateinfo = _context.Corperate_Infos.ToList();
             var projects = _context.Projects.Include(m => m.Project_Title).ToList();
             var cotragecocontent = _context.Cotrageco_Contents.ToList();
+            var allbanners = _context.Banner.ToList();
 
             // add the data collected to the view model, dont forget to pass the object in parameter
             var homeviewmodel = new HomeViewModel
@@ -34,7 +35,8 @@ namespace Cotrageco.Controllers
                 Objectives = ourgoals,
                 Corperate_Infos = corperateinfo,
                 Projects = projects,
-                cotrageco_Contents = cotragecocontent
+                cotrageco_Contents = cotragecocontent,
+                Banner = allbanners
             };
             return View(homeviewmodel);
         }
@@ -48,8 +50,7 @@ namespace Cotrageco.Controllers
             var registration = _context.Registrations.ToList();
             var ofs = _context.OFSs.ToList();
             var partners = _context.Partners.ToList();
-            var resources = _context.Our_Resources.ToList();
-            var representation = _context.Representations.ToList();
+            var allbanners = _context.Banner.ToList();
 
 
             // add the data collected to the view model, dont forget to pass the object in parameter
@@ -60,8 +61,7 @@ namespace Cotrageco.Controllers
                 Registrations = registration,
                 OFSs = ofs,
                 Partners = partners,
-                Our_Resources = resources,
-                Representations = representation
+                Banner = allbanners
             };
             return View(aboutviewmodel);
         }
@@ -73,13 +73,15 @@ namespace Cotrageco.Controllers
             var cotragecocontent = _context.Cotrageco_Contents.ToList();
             var ourrealisations = _context.Our_Realisations.ToList();
             var corperatepurpose = _context.Corperate_Purposes.ToList();
+            var allbanners = _context.Banner.ToList();
 
             // add the data collected to the view model, dont forget to pass the object in parameter
             var servicesviewmodel = new ServicesViewModel
             {
                 cotrageco_Contents = cotragecocontent,
                 Our_Realisations = ourrealisations,
-                Corperate_Purposes = corperatepurpose
+                Corperate_Purposes = corperatepurpose,
+                Banner = allbanners
             };
             return View(servicesviewmodel);
         }
@@ -89,11 +91,13 @@ namespace Cotrageco.Controllers
         {
             //fetch the data from the database, add _context if it missing 
             var cotragecocontent = _context.Cotrageco_Contents.ToList();
+            var allbanners = _context.Banner.ToList();
 
             // add the data collected to the view model, dont forget to pass the object in parameter
             var contactviewmodel = new ContactViewModel
             {
-                cotrageco_Contents = cotragecocontent
+                cotrageco_Contents = cotragecocontent,
+                Banner = allbanners
             };
             return View(contactviewmodel);
         }

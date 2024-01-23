@@ -20,5 +20,7 @@ namespace Cotrageco.ViewModel
         //to display items from the projects table in the database
         public IEnumerable<Project> Projects { get; set; }
 
+        public IEnumerable<Banner> Banner { get; set; }
+
     }
 }

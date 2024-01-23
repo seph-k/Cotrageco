@@ -9,7 +9,6 @@ namespace Cotrageco.ViewModel
         public IEnumerable<Registration> Registrations { get; set; }
         public IEnumerable<OFS> OFSs { get; set; }
         public IEnumerable<Partner> Partners { get; set; }
-        public IEnumerable<Our_Resource> Our_Resources { get; set; }
-        public IEnumerable<Representation> Representations { get; set; }
+        public IEnumerable<Banner> Banner { get; set; }
     }
 }
