@@ -27,15 +27,16 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Purpose_Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Purpose_Icon)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Purpose_Description)
-            </td>
+                <td>
+                    @Html.Raw(item.Purpose_Title)
+                </td>
+                <td>
+                    @Html.Raw(item.Purpose_Icon)
+                </td>
+                <td>
+                    @Html.Raw(item.Purpose_Description)
+                </td>
+
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Corperate_PurposeId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Corperate_PurposeId">Details</a> |

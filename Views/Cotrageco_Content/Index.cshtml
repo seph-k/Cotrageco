@@ -87,75 +87,76 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Objective_Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Objective_Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Project_Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Project_Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AboutUs_Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AboutUs_Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OFS_Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OFS_Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Services_Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Services_Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Realisations_Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Realisations_Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Purpose_Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Purpose_Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Contact_Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Contact_Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Contact_Address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Contact_Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Contact_Phone)
-            </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Resource_Title)
+                    @Html.Raw(item.Objective_Title)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Resource_Description)
+                    @Html.Raw(item.Objective_Description)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Representation_Title)
+                    @Html.Raw(item.Project_Title)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Representation_Description)
+                    @Html.Raw(item.Project_Description)
                 </td>
+                <td>
+                    @Html.Raw(item.AboutUs_Title)
+                </td>
+                <td>
+                    @Html.Raw(item.AboutUs_Description)
+                </td>
+                <td>
+                    @Html.Raw(item.OFS_Title)
+                </td>
+                <td>
+                    @Html.Raw(item.OFS_Description)
+                </td>
+                <td>
+                    @Html.Raw(item.Services_Title)
+                </td>
+                <td>
+                    @Html.Raw(item.Services_Description)
+                </td>
+                <td>
+                    @Html.Raw(item.Realisations_Title)
+                </td>
+                <td>
+                    @Html.Raw(item.Realisations_Description)
+                </td>
+                <td>
+                    @Html.Raw(item.Purpose_Title)
+                </td>
+                <td>
+                    @Html.Raw(item.Purpose_Description)
+                </td>
+                <td>
+                    @Html.Raw(item.Contact_Title)
+                </td>
+                <td>
+                    @Html.Raw(item.Contact_Description)
+                </td>
+                <td>
+                    @Html.Raw(item.Contact_Address)
+                </td>
+                <td>
+                    @Html.Raw(item.Contact_Email)
+                </td>
+                <td>
+                    @Html.Raw(item.Contact_Phone)
+                </td>
+                <td>
+                    @Html.Raw(item.Resource_Title)
+                </td>
+                <td>
+                    @Html.Raw(item.Resource_Description)
+                </td>
+                <td>
+                    @Html.Raw(item.Representation_Title)
+                </td>
+                <td>
+                    @Html.Raw(item.Representation_Description)
+                </td>
+
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Cotrageco_ContentId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Cotrageco_ContentId">Details</a> |

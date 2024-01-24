@@ -9,18 +9,22 @@
 
 <section class="w3l-main-slider" id="Accueil">
     <!-- main-slider -->
-    <div class="companies20-content">
+    <div class="owl-one owl-carousel owl-theme">
+        @{
+            int counter = 1;
+        }
 
-        <div class="owl-one owl-carousel owl-theme">
+        @foreach (var HB in Model.Home_Banners)
+        {
             <div class="item">
                 <li>
-                    <div class="slider-info banner-view bg bg2" data-selector=".bg.bg2">
+                    <div class="slider-info banner-view banner-top@(counter) bg bg2" style="background-image: url('@HB.Home_Image'); background-size: cover; min-height: 750px; position: relative; z-index: 0; display: grid; align-items: center;" data-selector=".bg.bg2">
                         <div class="banner-info">
                             <div class="container">
                                 <div class="banner-info-bg mr-auto">
-                                    <h5> GENIE CIVIL</h5>
-                                    <p>Fourniture des biens et matériaux de divers services, l'architecture et la construction, les travaux de génie civil pour bâtiment, ponts et chaussées</p>
-                                    <a class="btn btn-secondary btn-theme2 mt-md-5 mt-4" href="services.html"> Lire la suite</a>
+                                    <h5>@Html.Raw(HB.Home_Title)</h5>
+                                    <p>@Html.Raw(HB.Home_Description)</p>
+                                    <a class="btn btn-secondary btn-theme2 mt-md-5 mt-4" asp-area="" asp-controller="Home" asp-action="About">Read More</a>
                                 </div>
                             </div>
                         </div>
@@ -28,51 +32,37 @@
                 </li>
             </div>
 
-            @foreach (var HB in Model.Home_Banners)
-            {
-                var counter = 0;
-                counter++;
-                <div class="item">
-                    <li>
-                        <div class="slider-info  banner-view banner-top@counter bg bg2" data-selector=".bg.bg2">
-                            <div class="banner-info">
-                                <div class="container">
-                                    <div class="banner-info-bg mr-auto">
-                                        <h5> @Html.Raw(HB.Home_Title)</h5>
-                                        <p> @Html.Raw(HB.Home_Description)</p>
-                                        <a class="btn btn-secondary btn-theme2 mt-md-5 mt-4" href="services.html"> Contact Us</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                </div>
-            }
-        </div>
+            counter++;
+        }
+
+
     </div>
 
 
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="~/assets/js/owl.carousel.js"></script>
+
     <!-- script for -->
     <script>
         $(document).ready(function () {
             $('.owl-one').owlCarousel({
                 loop: true,
                 margin: 0,
-                nav: false,
+                nav: true,
                 responsiveClass: true,
-                autoplay: false,
+                autoplay: true,
                 autoplayTimeout: 5000,
                 autoplaySpeed: 1000,
                 autoplayHoverPause: false,
+                navText: ["<i class='fa fa-chevron-left'></i>", "<i class='fa fa-chevron-right'></i>"], // Use custom icons for navigation
                 responsive: {
                     0: {
                         items: 1,
-                        nav: false
+                        nav: true
                     },
                     480: {
                         items: 1,
-                        nav: false
+                        nav: true
                     },
                     667: {
                         items: 1,
@@ -83,9 +73,11 @@
                         nav: true
                     }
                 }
-            })
-        })
+            });
+        });
     </script>
+
+
     <!-- //script -->
     <!-- /main-slider -->
 </section>

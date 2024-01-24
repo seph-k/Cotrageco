@@ -24,12 +24,13 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Realisation_Captions.Realisation_CaptionId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Realisation_Image)
-            </td>
+                <td>
+                    @Html.Raw(item.Realisation_Captions.Realisation_CaptionId)
+                </td>
+                <td>
+                    @Html.Raw(item.Realisation_Image)
+                </td>
+
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Our_RealisationId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Our_RealisationId">Details</a> |

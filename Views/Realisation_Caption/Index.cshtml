@@ -21,9 +21,10 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Caption)
-            </td>
+                <td>
+                    @Html.Raw(item.Caption)
+                </td>
+
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Realisation_CaptionId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Realisation_CaptionId">Details</a> |

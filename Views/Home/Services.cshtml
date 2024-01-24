@@ -4,7 +4,7 @@
     ViewData["Title"] = "Services";
 }
 
-<section class="w3l-service-breadcrum">
+@* <section class="w3l-service-breadcrum">
     <div class="breadcrum-bg">
         <div class="container py-5">
             <p><a href="index.html">Accueil</a> &nbsp; / &nbsp; Nos Services</p>
@@ -16,6 +16,28 @@
 
         </div>
     </div>
+</section> *@
+
+<section class="w3l-about-breadcrum">
+    @foreach (var SB in Model.Banner)
+    {
+        <div class="breadcrum-bg" style="  background-size: cover;
+  background-image: linear-gradient(to right, rgba(42, 42, 42, 0.71), rgba(38, 40, 40, 0.78)), url('@SB.Services_Banner');
+  background-repeat: no-repeat, no-repeat, no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  padding-top: 86px;">
+            <div class="container py-5">
+                <p><a href="index.html">Accueil</a> &nbsp; / &nbsp; Nos Services</p>
+                @foreach (var CC in Model.cotrageco_Contents)
+                {
+                    <h2 class="my-3">@Html.Raw(CC.Services_Title)</h2>
+                    <p>@Html.Raw(CC.Services_Description)</p>
+                }
+
+            </div>
+        </div>
+    }
 </section>
 
 <div class="products-4" id="gallery">
