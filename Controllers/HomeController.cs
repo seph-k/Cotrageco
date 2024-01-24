@@ -71,7 +71,7 @@ namespace Cotrageco.Controllers
         {
             //fetch the data from the database, add _context if it missing 
             var cotragecocontent = _context.Cotrageco_Contents.ToList();
-            var ourrealisations = _context.Our_Realisations.ToList();
+            var ourrealisations = _context.Our_Realisations.Include(m => m.Realisation_Captions).ToList();
             var corperatepurpose = _context.Corperate_Purposes.ToList();
             var allbanners = _context.Banner.ToList();
 
