@@ -51,7 +51,6 @@ namespace Cotrageco.Controllers
         // Helper method to save the uploaded image
         private async Task<string> SaveImage(IFormFile file)
         {
-
             if (file != null && file.Length > 0)
             {
                 // Generate a unique file name for the image (you can customize this logic)
@@ -71,13 +70,14 @@ namespace Cotrageco.Controllers
                 }
 
                 // Save the image file path to the database
-                var filepath = "/uploads/" + uniqueFileName; // Relative path to the image
+                var relativePath = "/uploads/" + uniqueFileName; // Relative path to the image
 
-                return filePath; // Return the file path
+                return relativePath; // Return the relative path
             }
 
             return null; // No file uploaded
         }
+
 
         // GET: Banners/Create
         public IActionResult Create()
@@ -100,6 +100,7 @@ namespace Cotrageco.Controllers
                 banner.OFS_Banner = await SaveImage(OFS_Banner);
                 banner.Services_Banner = await SaveImage(Services_Banner);
                 banner.Contact_Banner = await SaveImage(Contact_Banner);
+
 
                 _context.Add(banner);
                 await _context.SaveChangesAsync();
