@@ -13,11 +13,13 @@ namespace Cotrageco.Controllers
     public class Home_BannerController : Controller
     {
         private readonly ApplicationDbContext _context;
+		private readonly IWebHostEnvironment _webHostEnvironment; // Add this line
 
-        public Home_BannerController(ApplicationDbContext context)
-        {
-            _context = context;
-        }
+		public Home_BannerController(ApplicationDbContext context, IWebHostEnvironment webHostEnvironment)
+		{
+			_context = context;
+			_webHostEnvironment = webHostEnvironment;
+		}
 
         // GET: Home_Banner
         public async Task<IActionResult> Index()
@@ -56,13 +58,37 @@ namespace Cotrageco.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Home_BannerId,Home_Title,Home_Description,Home_Image")] Home_Banner home_Banner)
+        public async Task<IActionResult> Create([Bind("Home_BannerId,Home_Title,Home_Description,Home_Image")] Home_Banner home_Banner, IFormFile Home_Image)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(home_Banner);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+				// Check if an image was uploaded
+				if (Home_Image != null && Home_Image.Length > 0)
+				{
+					// Generate a unique file name for the image (you can customize this logic)
+					string uniqueFileName = Guid.NewGuid().ToString() + "_" + Home_Image.FileName;
+
+					// Define the path to save the image in the wwwroot/uploads folder
+					string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "uploads");
+					string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+					// Create the uploads folder if it doesn't exist
+					Directory.CreateDirectory(uploadsFolder);
+
+					// Save the uploaded image to the file system
+					using (var stream = new FileStream(filePath, FileMode.Create))
+					{
+						await Home_Image.CopyToAsync(stream);
+					}
+
+					// Save the image file path to the database
+					home_Banner.Home_Image = "/uploads/" + uniqueFileName; // Relative path to the image
+
+
+					_context.Add(home_Banner);
+					await _context.SaveChangesAsync();
+					return RedirectToAction(nameof(Index));
+				}
             }
             return View(home_Banner);
         }
@@ -88,7 +114,7 @@ namespace Cotrageco.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Home_BannerId,Home_Title,Home_Description,Home_Image")] Home_Banner home_Banner)
+        public async Task<IActionResult> Edit(int id, [Bind("Home_BannerId,Home_Title,Home_Description,Home_Image")] Home_Banner home_Banner, IFormFile Home_Image)
         {
             if (id != home_Banner.Home_BannerId)
             {
@@ -99,7 +125,30 @@ namespace Cotrageco.Controllers
             {
                 try
                 {
-                    _context.Update(home_Banner);
+					// Check if an image was uploaded
+					if (Home_Image != null && Home_Image.Length > 0)
+					{
+						// Generate a unique file name for the image (you can customize this logic)
+						string uniqueFileName = Guid.NewGuid().ToString() + "_" + Home_Image.FileName;
+
+						// Define the path to save the image in the wwwroot/uploads folder
+						string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "uploads");
+						string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+						// Create the uploads folder if it doesn't exist
+						Directory.CreateDirectory(uploadsFolder);
+
+						// Save the uploaded image to the file system
+						using (var stream = new FileStream(filePath, FileMode.Create))
+						{
+							await Home_Image.CopyToAsync(stream);
+						}
+
+						// Save the image file path to the database
+						home_Banner.Home_Image = "/uploads/" + uniqueFileName; // Relative path to the image
+					}
+
+					_context.Update(home_Banner);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)

@@ -141,6 +141,16 @@ namespace Cotrageco.Controllers
             {
                 try
                 {
+                    if (ModelState.IsValid)
+                    {
+                        // Save the uploaded images
+                        banner.Website_Logo = await SaveImage(Website_Logo);
+                        banner.AboutUs_Banner = await SaveImage(AboutUs_Banner);
+                        banner.OFS_Banner = await SaveImage(OFS_Banner);
+                        banner.Services_Banner = await SaveImage(Services_Banner);
+                        banner.Contact_Banner = await SaveImage(Contact_Banner);
+
+                    }
                     _context.Update(banner);
                     await _context.SaveChangesAsync();
                 }
