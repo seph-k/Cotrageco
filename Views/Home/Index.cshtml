@@ -189,105 +189,44 @@
 
 @* here is the code from the home page for the projects  *@
 
-<style>
-    .tab-container {
-        display: flex;
-        flex-wrap: wrap; /* Wrap tabs to next line if they don't fit in one line */
-    }
-
-    .tab {
-        margin-right: 10px; /* Adjust margin as needed */
-    }
-
-    .tab-content {
-        display: none;
-    }
-
-    #content1 {
-        display: block;
-    }
-
-    #tab1:checked ~ #content1,
-    #tab2:checked ~ #content2,
-    #tab3:checked ~ #content3,
-    /* Add more as needed */
-    #tabN:checked ~ #contentN {
-        display: block;
-    }
-
-    #tab2:checked:not(#tab1:checked) ~ #content1 {
-        display: none;
-    }
-</style>
 
 <div class="products-4" id="gallery">
     <!-- Products4 block -->
     <div id="products4-block" class="text-center">
         <div class="container">
-            <div class="heading text-center mx-auto mb-5">
-                @foreach (var CC in Model.cotrageco_Contents)
-                {
-                    <h3 class="head"> @Html.Raw(CC.Project_Title)</h3>
-                    <p class="my-3 head">  @Html.Raw(CC.Project_Description)</p>
-                }
-            </div>
-
-            <div class="tab-container">
-                <input id="tab1" type="radio" name="tabs" checked class="tab">
-                <label class="tabtle" for="tab1">Tous les projets</label>
-
-                @{
-                    var counterr = 2;
-                } <!-- Initialize counter outside the loop -->
-                @foreach (var PT in Model.Projects)
-                {
-                    <input id="tab@(counterr)" type="radio" name="tabs" class="tab">
-                    <label class="tabtle" for="tab@(counterr)"> @Html.Raw(PT.Project_Title.Title)</label>
-
-                    counterr++;
-                }
-            </div>
-
-            <section id="content1" class="tab-content text-left">
-                <div class="d-grid grid-col-3">
-                    @foreach (var PT in Model.Projects)
-                    {
-                        <div class="product">
-                            <a href="@PT.Project_Image" data-lightbox="example-set"
-                               data-title="Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam architecto, ex veritatis">
-                                <figure>
-                                    <img src="@PT.Project_Image" class="img-responsive" alt="" />
-                                </figure>
-                            </a>
-                        </div>
-                    }
-                </div>
-            </section>
-
             @{
-                var counterrr = 2;
+                var uniqueTitles = Model.Projects.Select(p => p.Project_Title.Title).Distinct();
+                var counterr = 1;
             } <!-- Initialize counter outside the loop -->
-            @foreach (var PT in Model.Projects)
+            @foreach (var title in uniqueTitles)
             {
-                <section id="content@(counterrr)" class="tab-content text-left">
+                var projectsWithTitle = Model.Projects.Where(p => p.Project_Title.Title == title).ToList();
+                <input id="tab@(counterr)" type="radio" name="tabs" @(counterr == 1 ? "checked" : "")>
+                <label class="tabtle" for="tab@(counterr)">@Html.Raw(title)</label>
+
+                <section id="content@(counterr)" class="tab-content text-left">
                     <div class="d-grid grid-col-3">
-                        <div class="product">
-                            <a href="@PT.Project_Image" data-lightbox="example-set"
-                               data-title="Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam architecto, ex veritatis">
-                                <figure>
-                                    <img src="@PT.Project_Image" class="img-responsive" alt="" />
-                                </figure>
-                            </a>
-                        </div>
+                        @foreach (var PT in projectsWithTitle)
+                        {
+                            <div class="product">
+                                <a href="@PT.Project_Image" data-lightbox="example-set"
+                                   data-title="Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam architecto, ex veritatis">
+                                    <figure>
+                                        <img src="@PT.Project_Image" class="img-responsive" alt="" />
+                                    </figure>
+                                </a>
+                            </div>
+                        }
                     </div>
                 </section>
 
-                counterrr++;
+                counterr++;
             }
         </div>
     </div>
     <!-- Products4 block -->
 </div>
+
 
 
 

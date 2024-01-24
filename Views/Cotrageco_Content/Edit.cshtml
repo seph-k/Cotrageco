@@ -8,11 +8,46 @@
 
 <h4>Cotrageco_Content</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit" method="post" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Cotrageco_ContentId" />
+
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+<style>
+    .accordion {
+        background-color: #eee;
+        color: #444;
+        cursor: pointer;
+        padding: 18px;
+        width: 100%;
+        border: none;
+        text-align: left;
+        outline: none;
+        font-size: 15px;
+        transition: 0.4s;
+    }
+
+        .active, .accordion:hover {
+            background-color: #ccc;
+        }
+
+    .panel {
+        padding: 0 18px;
+        display: none;
+        background-color: white;
+        overflow: hidden;
+    }
+</style>
+
+
+     <form asp-action="Edit" method="post" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Cotrageco_ContentId" />
+        @* home *@
+
+    <button type="button" class="accordion">Home Details</button>
+        <div class="panel">
             <div class="form-group">
                 <label asp-for="Objective_Title" class="control-label"></label>
                 <textarea id="summernote1" asp-for="Objective_Title" class="form-control"> </textarea>
@@ -63,6 +98,15 @@
                 </script>
             </div>
 
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
+        </div>
+
+        @* about *@
+
+    <button type="button" class="accordion">Abouts Us Details</button>
+        <div class="panel">
             <div class="form-group">
                 <label asp-for="AboutUs_Title" class="control-label"></label>
                 <textarea id="summernote5" asp-for="AboutUs_Title" class="form-control"></textarea>
@@ -114,6 +158,17 @@
                     });
                 </script>
             </div>
+
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
+        </div>
+
+        @* services *@
+
+
+    <button type="button" class="accordion">Services Details</button>
+        <div class="panel">
             <div class="form-group">
                 <label asp-for="Services_Title" class="control-label"></label>
                 <textarea id="summernote9" asp-for="Services_Title" class="form-control"></textarea>
@@ -192,6 +247,71 @@
                 </script>
             </div>
 
+            <!-- Resource_Title -->
+            <div class="form-group">
+                <label asp-for="Resource_Title" class="control-label"></label>
+                <textarea id="summernote20" asp-for="Resource_Title" class="form-control"></textarea>
+                <span asp-validation-for="Resource_Title" class="text-danger"></span>
+                <script>
+                    $('#summernote20').summernote({
+                        placeholder: 'Resource Title',
+                        tabsize: 2,
+                        height: 50
+                    });
+                </script>
+            </div>
+
+            <!-- Resource_Description -->
+            <div class="form-group">
+                <label asp-for="Resource_Description" class="control-label"></label>
+                <textarea id="summernote21" asp-for="Resource_Description" class="form-control"></textarea>
+                <span asp-validation-for="Resource_Description" class="text-danger"></span>
+                <script>
+                    $('#summernote21').summernote({
+                        placeholder: 'Resource Description',
+                        tabsize: 2,
+                        height: 50
+                    });
+                </script>
+            </div>
+
+            <!-- Representation_Title -->
+            <div class="form-group">
+                <label asp-for="Representation_Title" class="control-label"></label>
+                <textarea id="summernote22" asp-for="Representation_Title" class="form-control"></textarea>
+                <span asp-validation-for="Representation_Title" class="text-danger"></span>
+                <script>
+                    $('#summernote22').summernote({
+                        placeholder: 'Representation Title',
+                        tabsize: 2,
+                        height: 50
+                    });
+                </script>
+            </div>
+
+            <!-- Representation_Description -->
+            <div class="form-group">
+                <label asp-for="Representation_Description" class="control-label"></label>
+                <textarea id="summernote23" asp-for="Representation_Description" class="form-control"></textarea>
+                <span asp-validation-for="Representation_Description" class="text-danger"></span>
+                <script>
+                    $('#summernote23').summernote({
+                        placeholder: 'Representation Description',
+                        tabsize: 2,
+                        height: 50
+                    });
+                </script>
+            </div>
+
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
+        </div>
+
+
+        @* contact *@
+    <button type="button" class="accordion">Contact Us Details</button>
+        <div class="panel">
             <div class="form-group">
                 <label asp-for="Contact_Title" class="control-label"></label>
                 <textarea id="summernote15" asp-for="Contact_Title" class="form-control"></textarea>
@@ -257,68 +377,36 @@
                 </script>
             </div>
 
-            <!-- Resource_Title -->
-            <div class="form-group">
-                <label asp-for="Resource_Title" class="control-label"></label>
-                <textarea id="summernote20" asp-for="Resource_Title" class="form-control"></textarea>
-                <span asp-validation-for="Resource_Title" class="text-danger"></span>
-                <script>
-                    $('#summernote20').summernote({
-                        placeholder: 'Resource Title',
-                        tabsize: 2,
-                        height: 50
-                    });
-                </script>
-            </div>
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
+        </div>
 
-            <!-- Resource_Description -->
-            <div class="form-group">
-                <label asp-for="Resource_Description" class="control-label"></label>
-                <textarea id="summernote21" asp-for="Resource_Description" class="form-control"></textarea>
-                <span asp-validation-for="Resource_Description" class="text-danger"></span>
-                <script>
-                    $('#summernote21').summernote({
-                        placeholder: 'Resource Description',
-                        tabsize: 2,
-                        height: 50
-                    });
-                </script>
-            </div>
+     </form>
+    
 
-            <!-- Representation_Title -->
-            <div class="form-group">
-                <label asp-for="Representation_Title" class="control-label"></label>
-                <textarea id="summernote22" asp-for="Representation_Title" class="form-control"></textarea>
-                <span asp-validation-for="Representation_Title" class="text-danger"></span>
-                <script>
-                    $('#summernote22').summernote({
-                        placeholder: 'Representation Title',
-                        tabsize: 2,
-                        height: 50
-                    });
-                </script>
-            </div>
+   
 
-            <!-- Representation_Description -->
-            <div class="form-group">
-                <label asp-for="Representation_Description" class="control-label"></label>
-                <textarea id="summernote23" asp-for="Representation_Description" class="form-control"></textarea>
-                <span asp-validation-for="Representation_Description" class="text-danger"></span>
-                <script>
-                    $('#summernote23').summernote({
-                        placeholder: 'Representation Description',
-                        tabsize: 2,
-                        height: 50
-                    });
-                </script>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
+    @* <button class="accordion">Section 3</button>
+    <div class="panel">
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    </div> *@
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+<script>
+    $(document).ready(function () {
+        var acc = document.getElementsByClassName("accordion");
+        var i;
+
+        for (i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function () {
+                this.classList.toggle("active");
+                var panel = this.nextElementSibling;
+                if (panel.style.display === "block") {
+                    panel.style.display = "none";
+                } else {
+                    panel.style.display = "block";
+                }
+            });
+        }
+    });
+</script>
