@@ -29,6 +29,8 @@ namespace Cotrageco.Data
         public DbSet<Project_Title> Project_Titles { get; set; }
         public DbSet<Realisation_Caption> Realisation_Captions { get; set; }
         public DbSet<Cotrageco.Models.Banner> Banner { get; set; } = default!;
+        public DbSet<Event> Events { get; set; }
+        public DbSet<Event_Registration> Event_Registrations { get; set; }
 
     }
 }

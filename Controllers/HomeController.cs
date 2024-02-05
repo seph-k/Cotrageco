@@ -102,6 +102,24 @@ namespace Cotrageco.Controllers
             return View(contactviewmodel);
         }
 
+        public IActionResult Event()
+        {
+            //fetch the data from the database, add _context if it missing 
+            var events = _context.Events.ToList();
+            var allbanners = _context.Banner.ToList();
+            var cotragecocontent = _context.Cotrageco_Contents.ToList();
+
+            // add the data collected to the view model, dont forget to pass the object in parameter
+            var eventsviewmodel = new EventsViewModel
+            {
+                Events = events,
+                Banner = allbanners,
+                cotrageco_Contents = cotragecocontent
+
+            };
+            return View(eventsviewmodel);
+        }
+
         public IActionResult Privacy()
         {
             return View();

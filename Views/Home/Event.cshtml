@@ -1,0 +1,84 @@
+﻿@model Cotrageco.ViewModel.EventsViewModel
+
+@{
+    ViewData["Title"] = "About";
+}
+
+
+@* <section class="w3l-about-breadcrum">
+    @foreach (var AB in Model.Banner)
+    {
+        <div class="breadcrum-bg" style="background-size: cover;
+            background-image: linear-gradient(to right, rgba(42, 42, 42, 0.71), rgba(38, 40, 40, 0.78)), url('@AB.AboutUs_Banner');
+            background-repeat: no-repeat, no-repeat, no-repeat;
+            background-position: center;
+            background-attachment: fixed;
+            padding-top: 86px;">
+            <div class="container py-5">
+                <p><a href="index.html">Accueil</a> &nbsp; / &nbsp; À propos de nous</p>
+
+                @foreach (var CC in Model.cotrageco_Contents)
+                {
+                    <h2 class="my-3">@Html.Raw(CC.AboutUs_Title)</h2>
+                    <p>@Html.Raw(CC.AboutUs_Description)</p>
+                    <!-- Missing AboutUs_Banner (in the stylesheet**) -->
+                }
+            </div>
+        </div>
+    }
+</section> *@
+
+<div class="container">
+    <h1>Past Events</h1>
+
+    @if (Model.PastEvents.Any())
+    {
+        <div class="row">
+            @foreach (var eventItem in Model.PastEvents)
+            {
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        <img src="@eventItem.Event_Image" class="card-img-top" alt="Event Image">
+                        <div class="card-body">
+                            <h5 class="card-title">@Html.Raw(eventItem.Event_Title)</h5>
+                            <p class="card-text">@Html.Raw(eventItem.Event_Description)</p>
+                            <p class="card-text"><strong>Date:</strong> @eventItem.Event_Date.ToShortDateString()</p>
+                            <p class="card-text"><strong>Time:</strong> @eventItem.Event_Time.ToString(@"hh\:mm")</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <p>No past events available.</p>
+    }
+
+
+    <h1>Upcoming Events</h1>
+
+    @if (Model.UpcomingEvents.Any())
+    {
+        <div class="row">
+            @foreach (var eventItem in Model.UpcomingEvents)
+            {
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        <img src="@eventItem.Event_Image" class="card-img-top" alt="Event Image">
+                        <div class="card-body">
+                            <h5 class="card-title">@Html.Raw(eventItem.Event_Title)</h5>
+                            <p class="card-text">@Html.Raw(eventItem.Event_Description)</p>
+                            <p class="card-text"><strong>Date:</strong> @eventItem.Event_Date.ToShortDateString()</p>
+                            <p class="card-text"><strong>Time:</strong> @eventItem.Event_Time.ToString(@"hh\:mm")</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <p>No upcoming events available.</p>
+    }
+</div>

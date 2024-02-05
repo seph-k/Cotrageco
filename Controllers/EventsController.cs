@@ -8,73 +8,67 @@ using Microsoft.EntityFrameworkCore;
 using Cotrageco.Data;
 using Cotrageco.Models;
 using Ganss.Xss;
-using Microsoft.AspNetCore.Hosting;
 using System.Security.AccessControl;
 
 namespace Cotrageco.Controllers
 {
-    public class ProjectsController : Controller
+    public class EventsController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly IWebHostEnvironment _webHostEnvironment; // Add this line
 
-        public ProjectsController(ApplicationDbContext context, IWebHostEnvironment webHostEnvironment)
+        public EventsController(ApplicationDbContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
             _webHostEnvironment = webHostEnvironment;
         }
 
-        // GET: Projects
+        // GET: Events
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Projects.Include(p => p.Project_Title);
-            return View(await applicationDbContext.ToListAsync());
+              return _context.Events != null ? 
+                          View(await _context.Events.ToListAsync()) :
+                          Problem("Entity set 'ApplicationDbContext.Events'  is null.");
         }
 
-        // GET: Projects/Details/5
+        // GET: Events/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Projects == null)
+            if (id == null || _context.Events == null)
             {
                 return NotFound();
             }
 
-            var project = await _context.Projects
-                .Include(p => p.Project_Title)
-                .FirstOrDefaultAsync(m => m.ProjectId == id);
-            if (project == null)
+            var @event = await _context.Events
+                .FirstOrDefaultAsync(m => m.EventId == id);
+            if (@event == null)
             {
                 return NotFound();
             }
 
-            return View(project);
+            return View(@event);
         }
 
-        // GET: Projects/Create
+        // GET: Events/Create
         public IActionResult Create()
         {
-            ViewData["Project_TitleId"] = new SelectList(_context.Project_Titles, "Project_TitleId", "Title");
             return View();
         }
 
-        // POST: Projects/Create
+        // POST: Events/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProjectId,Project_TitleId,Project_Image")] Project project,IFormFile Project_Image)
+        public async Task<IActionResult> Create([Bind("EventId,Event_Title,Event_Description,Event_Date,Event_Time,Event_Image")] Event @event, IFormFile Event_Image)
         {
             if (ModelState.IsValid)
             {
-                //_context.Add(project);
-                //await _context.SaveChangesAsync();
-                //return RedirectToAction(nameof(Index));
-
                 // Check if an image was uploaded
-                if (Project_Image != null && Project_Image.Length > 0)
+                if (Event_Image != null && Event_Image.Length > 0)
                 {
                     // Generate a unique file name for the image (you can customize this logic)
-                    string uniqueFileName = Guid.NewGuid().ToString() + "_" + Project_Image.FileName;
+                    string uniqueFileName = Guid.NewGuid().ToString() + "_" + Event_Image.FileName;
 
                     // Define the path to save the image in the wwwroot/uploads folder
                     string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "uploads");
@@ -86,46 +80,46 @@ namespace Cotrageco.Controllers
                     // Save the uploaded image to the file system
                     using (var stream = new FileStream(filePath, FileMode.Create))
                     {
-                        await Project_Image.CopyToAsync(stream);
+                        await Event_Image.CopyToAsync(stream);
                     }
 
                     // Save the image file path to the database
-                    project.Project_Image = "/uploads/" + uniqueFileName; // Relative path to the image
+                    @event.Event_Image = "/uploads/" + uniqueFileName; // Relative path to the image
 
-                    _context.Add(project);
+
+                    _context.Add(@event);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
                 }
+
             }
-            ViewData["Project_TitleId"] = new SelectList(_context.Project_Titles, "Project_TitleId", "Title", project.Project_TitleId);
-            return View(project);
+            return View(@event);
         }
 
-        // GET: Projects/Edit/5
+        // GET: Events/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Projects == null)
+            if (id == null || _context.Events == null)
             {
                 return NotFound();
             }
 
-            var project = await _context.Projects.FindAsync(id);
-            if (project == null)
+            var @event = await _context.Events.FindAsync(id);
+            if (@event == null)
             {
                 return NotFound();
             }
-            ViewData["Project_TitleId"] = new SelectList(_context.Project_Titles, "Project_TitleId", "Title", project.Project_TitleId);
-            return View(project);
+            return View(@event);
         }
 
-        // POST: Projects/Edit/5
+        // POST: Events/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProjectId,Project_TitleId,Project_Image")] Project project, IFormFile Project_Image)
+        public async Task<IActionResult> Edit(int id, [Bind("EventId,Event_Title,Event_Description,Event_Date,Event_Time,Event_Image")] Event @event, IFormFile Event_Image)
         {
-            if (id != project.ProjectId)
+            if (id != @event.EventId)
             {
                 return NotFound();
             }
@@ -134,10 +128,11 @@ namespace Cotrageco.Controllers
             {
                 try
                 {
-                    if (Project_Image != null && Project_Image.Length > 0)
+                    // Check if an image was uploaded
+                    if (Event_Image != null && Event_Image.Length > 0)
                     {
                         // Generate a unique file name for the image (you can customize this logic)
-                        string uniqueFileName = Guid.NewGuid().ToString() + "_" + Project_Image.FileName;
+                        string uniqueFileName = Guid.NewGuid().ToString() + "_" + Event_Image.FileName;
 
                         // Define the path to save the image in the wwwroot/uploads folder
                         string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "uploads");
@@ -149,23 +144,18 @@ namespace Cotrageco.Controllers
                         // Save the uploaded image to the file system
                         using (var stream = new FileStream(filePath, FileMode.Create))
                         {
-                            await Project_Image.CopyToAsync(stream);
+                            await Event_Image.CopyToAsync(stream);
                         }
 
                         // Save the image file path to the database
-                        project.Project_Image = "/uploads/" + uniqueFileName; // Relative path to the image
-
-                        _context.Add(project);
-                        await _context.SaveChangesAsync();
-                        return RedirectToAction(nameof(Index));
+                        @event.Event_Image = "/uploads/" + uniqueFileName; // Relative path to the image
                     }
-
-                    _context.Update(project);
+                    _context.Update(@event);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProjectExists(project.ProjectId))
+                    if (!EventExists(@event.EventId))
                     {
                         return NotFound();
                     }
@@ -176,51 +166,49 @@ namespace Cotrageco.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Project_TitleId"] = new SelectList(_context.Project_Titles, "Project_TitleId", "Title", project.Project_TitleId);
-            return View(project);
+            return View(@event);
         }
 
-        // GET: Projects/Delete/5
+        // GET: Events/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Projects == null)
+            if (id == null || _context.Events == null)
             {
                 return NotFound();
             }
 
-            var project = await _context.Projects
-                .Include(p => p.Project_Title)
-                .FirstOrDefaultAsync(m => m.ProjectId == id);
-            if (project == null)
+            var @event = await _context.Events
+                .FirstOrDefaultAsync(m => m.EventId == id);
+            if (@event == null)
             {
                 return NotFound();
             }
 
-            return View(project);
+            return View(@event);
         }
 
-        // POST: Projects/Delete/5
+        // POST: Events/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Projects == null)
+            if (_context.Events == null)
             {
-                return Problem("Entity set 'ApplicationDbContext.Projects'  is null.");
+                return Problem("Entity set 'ApplicationDbContext.Events'  is null.");
             }
-            var project = await _context.Projects.FindAsync(id);
-            if (project != null)
+            var @event = await _context.Events.FindAsync(id);
+            if (@event != null)
             {
-                _context.Projects.Remove(project);
+                _context.Events.Remove(@event);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ProjectExists(int id)
+        private bool EventExists(int id)
         {
-          return (_context.Projects?.Any(e => e.ProjectId == id)).GetValueOrDefault();
+          return (_context.Events?.Any(e => e.EventId == id)).GetValueOrDefault();
         }
     }
 }

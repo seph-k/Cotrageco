@@ -1,0 +1,71 @@
+﻿@model Cotrageco.Models.Event
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Event</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        @* add method="post" enctype="multipart/form-data to the form tag to accept uploaded files *@
+        <form asp-action="Create" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Event_Title" class="control-label"></label>
+                @*  to use the SUMMERNOTE WYSIWYG editor, put it in the textarea tag with the id of the JS script *@
+                <textarea id="summernote1" asp-for="Event_Title" class="form-control"></textarea>
+                <span asp-validation-for="Event_Title" class="text-danger"></span>
+                @* the JS script of the SUMMERNOTE WYSIWYG editor *@
+                <script>
+                    $('#summernote1').summernote({
+                        placeholder: 'Hello Bootstrap 4',
+                        tabsize: 2,
+                        height: 50
+                    });
+                </script>
+            </div>
+            <div class="form-group">
+                <label asp-for="Event_Description" class="control-label"></label>
+                <textarea id="summernote2" asp-for="Event_Description" class="form-control"></textarea>
+                <span asp-validation-for="Event_Description" class="text-danger"></span>
+                <script>
+                    $('#summernote2').summernote({
+                        placeholder: 'Hello Bootstrap 4',
+                        tabsize: 2,
+                        height: 50
+                    });
+                </script>
+            </div>
+            <div class="form-group">
+                <label asp-for="Event_Date" class="control-label"></label>
+                <input type="date" asp-for="Event_Date" class="form-control" />
+                <span asp-validation-for="Event_Date" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Event_Time" class="control-label"></label>
+                <input type="time" asp-for="Event_Time" class="form-control" />
+                <span asp-validation-for="Event_Time" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Event_Image" class="control-label"></label>
+                @* add the type="file" to the input tag to accept uploaded files *@
+                <input type="file" asp-for="Event_Image" class="form-control" />
+                <span asp-validation-for="Event_Image" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
